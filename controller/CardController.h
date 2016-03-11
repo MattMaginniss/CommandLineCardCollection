@@ -1,0 +1,14 @@
+//
+// Created by Matt on 3/10/2016.
+//
+
+#ifndef CARDINTERLACER_CARDCONTROLLER_H
+#define CARDINTERLACER_CARDCONTROLLER_H
+
+
+class CardController {
+
+};
+
+
+#endif //CARDINTERLACER_CARDCONTROLLER_H
