@@ -26,4 +26,16 @@ namespace model {
     void CardNode::SetNextYear(CardNode *nextYear) {
         this->nextYear = nextYear;
     }
+
+    string CardNode::GetName() const {
+        return this->name;
+    }
+
+    string CardNode::GetCondition() const {
+        return this->condition;
+    }
+
+    float CardNode::GetValue() const {
+        return this->value;
+    }
 }

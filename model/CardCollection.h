@@ -19,11 +19,15 @@ namespace model {
     public:
         CardCollection();
 
+        CardNode* GetNameHead();
+        CardNode* GetYearHead();
+        CardNode* GetConditionHead();
+
         void InsertNode(CardNode *node);
 
         void DeleteNode(CardNode *node);
 
-        void insertCardByYear(CardNode *node, CardNode *previousYearNode) const;
+        void insertCardByYear(CardNode *node, CardNode *previousYearNode);
     };
 }
 
