@@ -22,6 +22,8 @@ namespace model {
         void InsertNode(CardNode *node);
 
         void DeleteNode(CardNode *node);
+
+        void insertCardByYear(CardNode *node, CardNode *previousYearNode) const;
     };
 }
 

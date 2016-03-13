@@ -17,13 +17,27 @@ namespace model {
         string condition;
         float value;
 
+
+    public:
         CardNode *nextName;
         CardNode *nextYear;
         CardNode *nextCondition;
 
-
-    public:
         CardNode(string name, int year, string condition, float value);
+
+        string GetName() const;
+
+        int GetYear() const;
+
+        string GetCondition() const;
+
+        float GetValue() const;
+
+        void SetNextName(CardNode *nextName);
+
+        void SetNextYear(CardNode *nextYear);
+
+        void SetNextCondition(CardNode *nextCondition);
     };
 }
 

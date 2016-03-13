@@ -19,11 +19,27 @@
         <CLASSES>
           <root url="file://D:/Programming/Cygwin/lib/gcc/x86_64-pc-cygwin/5.3.0/include" />
           <root url="file://D:/Programming/Cygwin/usr/include" />
+          <root url="file://$MODULE_DIR$/controller" />
+          <root url="file://$MODULE_DIR$/view" />
+          <root url="file://$MODULE_DIR$/model" />
         </CLASSES>
         <SOURCES>
           <root url="file://D:/Programming/Cygwin/lib/gcc/x86_64-pc-cygwin/5.3.0/include" />
           <root url="file://D:/Programming/Cygwin/usr/include" />
+          <root url="file://$MODULE_DIR$/controller" />
+          <root url="file://$MODULE_DIR$/view" />
+          <root url="file://$MODULE_DIR$/model" />
         </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/controller/CardController.cpp" />
+          <root url="file://$MODULE_DIR$/controller/CardController.h" />
+          <root url="file://$MODULE_DIR$/view/CardDisplay.cpp" />
+          <root url="file://$MODULE_DIR$/view/CardDisplay.h" />
+          <root url="file://$MODULE_DIR$/model/CardCollection.h" />
+          <root url="file://$MODULE_DIR$/model/CardNode.h" />
+          <root url="file://$MODULE_DIR$/model/CardNode.cpp" />
+          <root url="file://$MODULE_DIR$/model/CardCollection.cpp" />
+        </excluded>
       </library>
     </orderEntry>
   </component>
