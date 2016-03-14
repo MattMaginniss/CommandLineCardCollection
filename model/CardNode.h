@@ -6,38 +6,61 @@
 #define CARDINTERLACER_CARDNODE_H
 
 #include <string>
+#include <iostream>
 
 using namespace std;
+enum Condition {
+    Poor,
+    Good,
+    Excellent,
+    Mint,
+    Pristine
+};
+
+inline std::ostream& operator<<( std::ostream& os, const Condition& enumCondition )
+{
+    switch( enumCondition )
+    {
+        case Poor: os << "Poor"; break;
+        case Good: os << "Good"; break;
+        case Excellent: os << "Excellent"; break;
+        case Mint: os << "Mint"; break;
+        case Pristine: os << "Pristine"; break;
+    }
+    return os;
+}
 
 namespace model {
     class CardNode {
     private:
         string name;
         int year;
-        string condition;
-        float value;
+        Condition condition;
+        int value;
 
+        void setCondition(const string &condition);
 
     public:
         CardNode *nextName;
         CardNode *nextYear;
         CardNode *nextCondition;
 
-        CardNode(string name, int year, string condition, float value);
+        CardNode(string name, int year, string condition, int value);
 
         string GetName() const;
 
         int GetYear() const;
 
-        string GetCondition() const;
+        Condition GetCondition() const;
 
-        float GetValue() const;
+        int GetValue() const;
 
         void SetNextName(CardNode *nextName);
 
         void SetNextYear(CardNode *nextYear);
 
         void SetNextCondition(CardNode *nextCondition);
+
     };
 }
 
