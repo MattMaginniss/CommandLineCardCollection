@@ -11,10 +11,20 @@ namespace view {
 
     }
 
-    void CardDisplay::PrintCardDetails(CardNode *card) {
-        if (card != _NULL) {
-            cout << card->GetName() << " " << card->GetYear() << " " <<card->GetCondition() << " " <<card->GetValue() << endl;
-            PrintCardDetails(card->nextYear);
-        }
+
+    void CardDisplay::PrintCardByNameAscending(const CardNode *card) {
+        cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+        PrintCardByNameAscending(card->nextName);
     }
+
+    void CardDisplay::PrintCardByYearAscending(const CardNode *card) {
+        cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+        PrintCardByYearAscending(card->nextYear);
+    }
+
+    void CardDisplay::PrintCardByConditionAscending(const CardNode *card) {
+        cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+        PrintCardByConditionAscending(card->nextCondition);
+    }
+
 }

@@ -6,6 +6,7 @@
 #define CARDINTERLACER_CARDDISPLAY_H
 
 #include "CardNode.h"
+
 using namespace model;
 
 namespace view {
@@ -14,8 +15,13 @@ namespace view {
 
     public:
         CardDisplay();
-        void PrintCardDetails(CardNode *card);
 
+
+        void PrintCardByNameAscending(const CardNode *card);
+
+        void PrintCardByYearAscending(const CardNode *card);
+
+        void PrintCardByConditionAscending(const CardNode *card);
     };
 
 }
