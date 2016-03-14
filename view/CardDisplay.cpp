@@ -55,4 +55,22 @@ namespace view {
             cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
         }
     }
+
+    void CardDisplay::DisplayMenu() {
+        cout << " " << endl;
+        cout << "Please enter the desired action:" << endl;
+        cout << "\t1. Load File" << endl;
+        cout << "\t2. Save File" << endl;
+        cout << "\t3. Insert Card" << endl;
+        cout << "\t4. Delete Card" << endl;
+        cout << "\t5. Print Alphabetic" << endl;
+        cout << "\t6. Reverse Alphabetic" << endl;
+        cout << "\t7. Year Ascending" << endl;
+        cout << "\t8. Year Descending" << endl;
+        cout << "\t9. Condition Ascending" << endl;
+        cout << "\t10. Condition Descending" << endl;
+        cout << "\t11. Quit" << endl;
+        cout << " " << endl;
+        cout << "Enter Action >";
+    }
 }

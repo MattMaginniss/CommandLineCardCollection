@@ -29,6 +29,7 @@ namespace view {
 
         void PrintCardByConditionDescending(const CardNode *card);
 
+        void DisplayMenu();
 
     };
 
