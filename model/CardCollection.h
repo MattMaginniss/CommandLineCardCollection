@@ -15,19 +15,25 @@ namespace model {
         CardNode *YearHead;
         CardNode *ConditionHead;
 
+        void insertCardByName(CardNode *node, CardNode *previousNameNode);
+
+        void insertCardByYear(CardNode *node, CardNode *previousYearNode);
+
+        void insertCardByCondition(CardNode *node, CardNode *previousConditionNode);
 
     public:
         CardCollection();
 
-        CardNode* GetNameHead();
-        CardNode* GetYearHead();
-        CardNode* GetConditionHead();
+        CardNode *GetNameHead();
+
+        CardNode *GetYearHead();
+
+        CardNode *GetConditionHead();
 
         void InsertNode(CardNode *node);
 
         void DeleteNode(CardNode *node);
 
-        void insertCardByYear(CardNode *node, CardNode *previousYearNode);
     };
 }
 

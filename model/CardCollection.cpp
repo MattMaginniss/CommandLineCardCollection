@@ -19,9 +19,26 @@ namespace model {
             this->ConditionHead = node;
         } else {
             CardNode *previousYearNode = this->YearHead;
-//            CardNode *previousNameNode = this->NameHead;
-//            CardNode *previousConditionNode = this->ConditionHead;
+            CardNode *previousNameNode = this->NameHead;
+            CardNode *previousConditionNode = this->ConditionHead;
+
+            insertCardByName(node, previousNameNode);
             insertCardByYear(node, previousYearNode);
+            insertCardByCondition(node, previousConditionNode);
+        }
+    }
+
+    void CardCollection::insertCardByName(CardNode *node, CardNode *previousNameNode) {
+        if (node->GetName() <= this->NameHead->GetName()) {
+            node->nextName = this->NameHead;
+            this->NameHead = node;
+        } else if (previousNameNode->nextName == _NULL) {
+            previousNameNode->nextName = node;
+        } else if (node->GetName() <= previousNameNode->nextName->GetName()) {
+            node->SetNextName(previousNameNode->nextName);
+            previousNameNode->SetNextName(node);
+        } else {
+            this->insertCardByName(node, previousNameNode->nextName);
         }
     }
 
@@ -39,6 +56,20 @@ namespace model {
         }
     }
 
+    void CardCollection::insertCardByCondition(CardNode *node, CardNode *previousConditionNode) {
+        if (node->GetCondition() <= this->ConditionHead->GetCondition()) {
+            node->nextCondition = this->ConditionHead;
+            this->ConditionHead = node;
+        } else if (previousConditionNode->nextCondition == _NULL) {
+            previousConditionNode->nextCondition = node;
+        } else if (node->GetCondition() <= previousConditionNode->nextCondition->GetCondition()) {
+            node->SetNextCondition(previousConditionNode->nextCondition);
+            previousConditionNode->SetNextCondition(node);
+        } else {
+            this->insertCardByCondition(node, previousConditionNode->nextCondition);
+        }
+    }
+
     CardNode *CardCollection::GetYearHead() {
         return this->YearHead;
     }
@@ -50,4 +81,5 @@ namespace model {
     CardNode *CardCollection::GetConditionHead() {
         return this->ConditionHead;
     }
+
 }
