@@ -22,6 +22,14 @@ namespace view {
         void PrintCardByYearAscending(const CardNode *card);
 
         void PrintCardByConditionAscending(const CardNode *card);
+
+        void PrintCardByNameDescending(const CardNode *card);
+
+        void PrintCardByYearDescending(const CardNode *card);
+
+        void PrintCardByConditionDescending(const CardNode *card);
+
+
     };
 
 }
