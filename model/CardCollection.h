@@ -24,11 +24,15 @@ namespace model {
     public:
         CardCollection();
 
+        virtual ~CardCollection();
+
         CardNode *GetNameHead();
 
         CardNode *GetYearHead();
 
         CardNode *GetConditionHead();
+
+
 
         void InsertNode(CardNode *node);
 

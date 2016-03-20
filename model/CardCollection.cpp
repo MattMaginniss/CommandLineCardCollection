@@ -28,6 +28,14 @@ namespace model {
         }
     }
 
+    void CardCollection::DeleteNode(CardNode *node) {
+//        CardNode *currentNameNode = this->NameHead;
+//        CardNode *currentYearNode = this->YearHead;
+//        CardNode *currentConditionNode = this->ConditionHead;
+//
+//
+    }
+
     void CardCollection::insertCardByName(CardNode *node, CardNode *previousNameNode) {
         if (node->GetName() <= this->NameHead->GetName()) {
             node->nextName = this->NameHead;
@@ -82,4 +90,18 @@ namespace model {
         return this->ConditionHead;
     }
 
+    CardCollection::~CardCollection() {
+        cout << "In Collection DeConstructor" << endl;
+
+        CardNode *currentNode = this->YearHead;
+
+        while (currentNode != _NULL) {
+            CardNode *nextNode = currentNode->nextYear;
+            delete(currentNode);
+            currentNode = nextNode;
+        }
+        this->NameHead = 0;
+        this->YearHead = 0;
+        this->ConditionHead = 0;
+    }
 }
