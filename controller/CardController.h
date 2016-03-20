@@ -5,10 +5,32 @@
 #ifndef CARDINTERLACER_CARDCONTROLLER_H
 #define CARDINTERLACER_CARDCONTROLLER_H
 
+#include "CardCollection.h"
+#include "CardNode.h"
 
-class CardController {
+using namespace model;
 
-};
+#include "CardDisplay.h"
+
+using namespace view;
+
+
+namespace controller {
+    class CardController {
+    private:
+        CardCollection *collection;
+        CardDisplay *display;
+        string getInputString();
+        int getInputInt();
+    public:
+        CardController();
+        virtual ~CardController();
+
+        void Run();
+
+    };
+
+}
 
 
 #endif //CARDINTERLACER_CARDCONTROLLER_H
