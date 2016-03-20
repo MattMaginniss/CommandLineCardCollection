@@ -12,6 +12,7 @@ using namespace model;
 namespace view {
     class CardDisplay {
     private:
+        void printCardData(const CardNode *card);
 
     public:
         CardDisplay();
@@ -30,6 +31,7 @@ namespace view {
         void PrintCardByConditionDescending(const CardNode *card);
 
         void DisplayMenu();
+
 
     };
 

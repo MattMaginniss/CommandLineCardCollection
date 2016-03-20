@@ -14,21 +14,21 @@ namespace view {
 
     void CardDisplay::PrintCardByNameAscending(const CardNode *card) {
         if (card != _NULL) {
-            cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+            this->printCardData(card);
             this->PrintCardByNameAscending(card->nextName);
         }
     }
 
     void CardDisplay::PrintCardByYearAscending(const CardNode *card) {
         if (card != _NULL) {
-            cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+            this->printCardData(card);
             this->PrintCardByYearAscending(card->nextYear);
         }
     }
 
     void CardDisplay::PrintCardByConditionAscending(const CardNode *card) {
         if (card != _NULL) {
-            cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+            this->printCardData(card);
             this->PrintCardByConditionAscending(card->nextCondition);
         }
     }
@@ -36,7 +36,7 @@ namespace view {
     void CardDisplay::PrintCardByNameDescending(const CardNode *card) {
         if (card != _NULL) {
             this->PrintCardByNameDescending(card->nextName);
-            cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+            this->printCardData(card);
         }
 
     }
@@ -44,7 +44,7 @@ namespace view {
     void CardDisplay::PrintCardByYearDescending(const CardNode *card) {
         if (card != _NULL) {
             this->PrintCardByYearDescending(card->nextYear);
-            cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+            this->printCardData(card);
         }
 
     }
@@ -52,7 +52,7 @@ namespace view {
     void CardDisplay::PrintCardByConditionDescending(const CardNode *card) {
         if (card != _NULL) {
             this->PrintCardByConditionDescending(card->nextCondition);
-            cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
+            this->printCardData(card);
         }
     }
 
@@ -72,5 +72,9 @@ namespace view {
         cout << "\t11. Quit" << endl;
         cout << " " << endl;
         cout << "Enter Action >";
+    }
+
+    void CardDisplay::printCardData(const CardNode *card) {
+        cout << card->GetName() << " " << card->GetYear() << " " << card->GetCondition() << " " << card->GetValue() << endl;
     }
 }
