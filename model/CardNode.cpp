@@ -29,6 +29,8 @@ namespace model {
             CardNode::condition = Mint;
         } else if (condition.compare("Pristine") == 0) {
             CardNode::condition = Pristine;
+        } else {
+            throw 0;
         }
     }
 
@@ -61,4 +63,11 @@ namespace model {
         return this->value;
     }
 
+    CardNode::~CardNode() {
+        cout << "Deleting: " << this->name << " " << this->year << " " << this->condition << " " << this->value << endl;
+        this->nextName = _NULL;
+        this->nextYear = _NULL;
+        this->nextCondition = _NULL;
+
+    }
 }

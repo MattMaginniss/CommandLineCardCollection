@@ -47,6 +47,8 @@ namespace model {
 
         CardNode(string name, int year, string condition, int value);
 
+        virtual ~CardNode();
+
         string GetName() const;
 
         int GetYear() const;

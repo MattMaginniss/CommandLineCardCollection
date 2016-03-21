@@ -21,27 +21,6 @@ namespace controller {
             CardNode *card = new CardNode(names[i], years[i], conditions[i], 1000);
             this->collection->InsertNode(card);
         }
-//
-//        cout << "---------------------------------" << endl;
-//        cout << "By Name ASC" << endl;
-//        this->display->PrintCardByNameAscending(this->collection->GetNameHead());
-//        cout << "---------------------------------" << endl;
-//        cout << "By Name DESC" << endl;
-//        this->display->PrintCardByNameDescending(this->collection->GetNameHead());
-//
-//        cout << "---------------------------------" << endl;
-//        cout << "By Year ASC" << endl;
-//        this->display->PrintCardByYearAscending(this->collection->GetYearHead());
-//        cout << "---------------------------------" << endl;
-//        cout << "By Year DESC" << endl;
-//        this->display->PrintCardByYearDescending(this->collection->GetYearHead());
-//
-//        cout << "---------------------------------" << endl;
-//        cout << "By Condition ASC" << endl;
-//        this->display->PrintCardByConditionAscending(this->collection->GetConditionHead());
-//        cout << "---------------------------------" << endl;
-//        cout << "By Condition DESC" << endl;
-//        this->display->PrintCardByConditionDescending(this->collection->GetConditionHead());
 
         int userMenuChoice;
         cout << "Welcome to Matt Maginniss' Baseball Card Collector" << endl;
