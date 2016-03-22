@@ -32,6 +32,12 @@ namespace controller {
             cout << "Load File!" << endl;
         } else if (userMenuChoice == 2) {
             cout << "Save File!" << endl;
+//            ofstream out(this->outfile);
+//            streambuf *coutbuf = cout.rdbuf();
+//            cout.rdbuf(out.rdbuf());
+//            this->display->PrintCardByNameAscending(this->collection->GetNameHead());
+//            cout.rdbuf(coutbuf);
+//            out.close();
         } else if (userMenuChoice == 3) {
             string cardName;
             int cardYear;

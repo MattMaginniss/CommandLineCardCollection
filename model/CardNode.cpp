@@ -13,9 +13,9 @@ namespace model {
         this->year = year;
         this->setCondition(condition);
         this->value = value;
-        this->nextName = _NULL;
-        this->nextYear = _NULL;
-        this->nextCondition = _NULL;
+        this->nextName = 0;
+        this->nextYear = 0;
+        this->nextCondition = 0;
     }
 
     void CardNode::setCondition(const string &condition) {
@@ -65,9 +65,9 @@ namespace model {
 
     CardNode::~CardNode() {
         cout << "Deleting: " << this->name << " " << this->year << " " << this->condition << " " << this->value << endl;
-        this->nextName = _NULL;
-        this->nextYear = _NULL;
-        this->nextCondition = _NULL;
+        this->nextName = 0;
+        this->nextYear = 0;
+        this->nextCondition = 0;
 
     }
 }
