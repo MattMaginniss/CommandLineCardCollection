@@ -77,4 +77,9 @@ namespace view {
     void CardDisplay::printCardData(const CardNode *card) {
         cout << card->GetName() << "," << card->GetYear() << "," << card->GetCondition() << "," << card->GetValue() << endl;
     }
+
+    void CardDisplay::DisplayMessage(const string &message) {
+        cout << message << endl;
+
+    }
 }
