@@ -19,19 +19,31 @@ namespace model {
     }
 
     void CardNode::setCondition(const string &condition) {
-        if (condition.compare("Poor") == 0) {
+        string value = convertToLower(condition);
+
+        if (value.compare("poor") == 0) {
             CardNode::condition = Poor;
-        } else if (condition.compare("Good") == 0) {
+        } else if (value.compare("good") == 0) {
             CardNode::condition = Good;
-        } else if (condition.compare("Excellent") == 0) {
+        } else if (value.compare("excellent") == 0) {
             CardNode::condition = Excellent;
-        } else if (condition.compare("Mint") == 0) {
+        } else if (value.compare("mint") == 0) {
             CardNode::condition = Mint;
-        } else if (condition.compare("Pristine") == 0) {
+        } else if (value.compare("pristine") == 0) {
             CardNode::condition = Pristine;
         } else {
             throw 0;
         }
+    }
+
+    string CardNode::convertToLower(const string &condition) const {
+        locale loc;
+        string value = condition;
+        for (basic_string::size_type i = 0; i < value.length(); ++i)
+            value[i] = tolower(value[i], loc);
+
+        value;
+        return value;
     }
 
 

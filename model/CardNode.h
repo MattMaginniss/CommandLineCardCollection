@@ -39,6 +39,7 @@ namespace model {
         int value;
 
         void setCondition(const string &condition);
+        string convertToLower(const string &condition) const;
 
     public:
         CardNode *nextName;
