@@ -49,12 +49,17 @@ namespace controller {
                 }
             } else if (userMenuChoice == 2) {
                 cout << "Save File!" << endl;
-//                ofstream out(this->outfile);
-//                streambuf *coutbuf = cout.rdbuf();
-//                cout.rdbuf(out.rdbuf());
-//                this->display->PrintCardByNameAscending(this->collection->GetNameHead());
-//                cout.rdbuf(coutbuf);
-//                out.close();
+                string filename;
+
+                this->display->DisplayMessage("Please enter a filename to save the card collection to: ");
+                cin >> filename;
+
+                ofstream out(filename);
+                streambuf *coutbuf = cout.rdbuf();
+                cout.rdbuf(out.rdbuf());
+                this->display->PrintCardByNameAscending(this->collection->GetNameHead());
+                cout.rdbuf(coutbuf);
+                out.close();
             } else if (userMenuChoice == 3) {
                 CardNode* card = this->createCard();
                 this->collection->InsertNode(card);
