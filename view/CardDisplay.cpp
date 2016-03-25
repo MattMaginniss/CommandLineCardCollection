@@ -80,6 +80,11 @@ namespace view {
 
     void CardDisplay::DisplayMessage(const string &message) {
         cout << message << endl;
+    }
 
+    void CardDisplay::DisplayWelcome() {
+        cout << "" << endl;
+        cout << "Welcome to Matt Maginniss' Baseball Card Collector" << endl;
+        cout << "--------------------------------------------------" << endl;
     }
 }

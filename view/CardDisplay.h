@@ -34,6 +34,8 @@ namespace view {
 
         void DisplayMessage(const string &message);
 
+        void DisplayWelcome();
+
 
     };
 
