@@ -22,6 +22,7 @@ namespace controller {
         CardDisplay *display;
         string getInputString();
         int getInputInt();
+        CardNode* createCard();
     public:
         CardController();
         virtual ~CardController();
