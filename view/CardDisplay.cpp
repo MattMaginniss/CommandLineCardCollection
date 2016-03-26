@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <iomanip>
 #include "CardDisplay.h"
 
 namespace view {
@@ -14,21 +15,21 @@ namespace view {
 
     void CardDisplay::PrintCardByNameAscending(const CardNode *card) {
         if (card != 0) {
-            this->printCardData(card);
+            this->DisplayCardDataConsoleFormat(card);
             this->PrintCardByNameAscending(card->nextName);
         }
     }
 
     void CardDisplay::PrintCardByYearAscending(const CardNode *card) {
         if (card != 0) {
-            this->printCardData(card);
+            this->DisplayCardDataConsoleFormat(card);
             this->PrintCardByYearAscending(card->nextYear);
         }
     }
 
     void CardDisplay::PrintCardByConditionAscending(const CardNode *card) {
         if (card != 0) {
-            this->printCardData(card);
+            this->DisplayCardDataConsoleFormat(card);
             this->PrintCardByConditionAscending(card->nextCondition);
         }
     }
@@ -36,7 +37,7 @@ namespace view {
     void CardDisplay::PrintCardByNameDescending(const CardNode *card) {
         if (card != 0) {
             this->PrintCardByNameDescending(card->nextName);
-            this->printCardData(card);
+            this->DisplayCardDataConsoleFormat(card);
         }
 
     }
@@ -44,7 +45,7 @@ namespace view {
     void CardDisplay::PrintCardByYearDescending(const CardNode *card) {
         if (card != 0) {
             this->PrintCardByYearDescending(card->nextYear);
-            this->printCardData(card);
+            this->DisplayCardDataConsoleFormat(card);
         }
 
     }
@@ -52,7 +53,7 @@ namespace view {
     void CardDisplay::PrintCardByConditionDescending(const CardNode *card) {
         if (card != 0) {
             this->PrintCardByConditionDescending(card->nextCondition);
-            this->printCardData(card);
+            this->DisplayCardDataConsoleFormat(card);
         }
     }
 
@@ -74,7 +75,7 @@ namespace view {
         cout << "Enter Action >";
     }
 
-    void CardDisplay::printCardData(const CardNode *card) {
+    void CardDisplay::DisplayCardDataFileFormat(const CardNode *card) {
         cout << card->GetName() << "," << card->GetYear() << "," << card->GetCondition() << "," << card->GetValue() << endl;
     }
 
@@ -86,5 +87,10 @@ namespace view {
         cout << "" << endl;
         cout << "Welcome to Matt Maginniss' Baseball Card Collector" << endl;
         cout << "--------------------------------------------------" << endl;
+    }
+
+    void CardDisplay::DisplayCardDataConsoleFormat(const CardNode *card) {
+        cout << setw(20) << left << card->GetName() << setw(6) << left << card->GetYear() << setw(12) << left << card->GetCondition() << setw(12) << right << card->GetValue() << endl;
+
     }
 }

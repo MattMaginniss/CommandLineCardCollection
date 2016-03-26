@@ -12,7 +12,6 @@ using namespace model;
 namespace view {
     class CardDisplay {
     private:
-        void printCardData(const CardNode *card);
 
     public:
         CardDisplay();
@@ -36,6 +35,9 @@ namespace view {
 
         void DisplayWelcome();
 
+        void DisplayCardDataFileFormat(const CardNode *card);
+
+        void DisplayCardDataConsoleFormat(const CardNode *card);
 
     };
 
