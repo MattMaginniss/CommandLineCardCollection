@@ -18,9 +18,10 @@ namespace controller {
         int years[] = {1970, 1925, 2016, 1969, 1950, 1921, 1968, 2014, 2013};
         string names[] = {"Bobby", "Alex", "Smith", "Zander", "Jack", "Michael", "Matt", "Ryan", "Zach"};
         string conditions[] = {"Mint", "Poor", "Pristine", "Pristine", "Excellent", "Poor", "Good", "Good", "Mint"};
+        int values[] = {456245, 124, 9342, 1000, 24234, 1000000, 4240242, 12392, 429};
 
         for (int i = 0; i < 9; i++) {
-            CardNode *card = new CardNode(names[i], years[i], conditions[i], 1000);
+            CardNode *card = new CardNode(names[i], years[i], conditions[i], values[i]);
             this->collection->InsertNode(card);
         }
         bool running = true;
@@ -57,7 +58,7 @@ namespace controller {
                 ofstream out(filename);
                 streambuf *coutbuf = cout.rdbuf();
                 cout.rdbuf(out.rdbuf());
-                this->display->PrintCardByNameAscending(this->collection->GetNameHead());
+                this->display->PrintCardsForFileFormat(this->collection->GetNameHead());
                 cout.rdbuf(coutbuf);
                 out.close();
             } else if (userMenuChoice == 3) {
