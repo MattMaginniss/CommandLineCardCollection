@@ -33,7 +33,6 @@ namespace model {
         CardNode *GetConditionHead();
 
 
-
         void InsertNode(CardNode *node);
 
         void DeleteNode(CardNode *node);

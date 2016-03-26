@@ -63,6 +63,7 @@ namespace view {
             this->PrintCardsForFileFormat(card->nextName);
         }
     }
+
     void CardDisplay::DisplayMenu() {
         cout << " " << endl;
         cout << "Please enter the desired action:" << endl;
@@ -82,7 +83,8 @@ namespace view {
     }
 
     void CardDisplay::displayCardDataFileFormat(const CardNode *card) {
-        cout << card->GetName() << "," << card->GetYear() << "," << card->GetCondition() << "," << card->GetValue() << endl;
+        cout << card->GetName() << "," << card->GetYear() << "," << card->GetCondition() << "," << card->GetValue() <<
+        endl;
     }
 
     void CardDisplay::DisplayMessage(const string &message) {
@@ -97,7 +99,8 @@ namespace view {
 
     void CardDisplay::displayCardDataConsoleFormat(const CardNode *card) {
         string value = "$" + to_string(card->GetValue()) + ".00";
-        cout << setw(20) << left << card->GetName() << setw(6) << left << card->GetYear() << setw(12) << left << card->GetCondition() << setw(15) << right << value << endl;
+        cout << setw(25) << left << card->GetName() << setw(6) << left << card->GetYear() << setw(12) << left <<
+        card->GetCondition() << setw(15) << right << value << endl;
 
     }
 

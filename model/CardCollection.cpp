@@ -97,7 +97,7 @@ namespace model {
 
         while (currentNode != 0) {
             CardNode *nextNode = currentNode->nextYear;
-            delete(currentNode);
+            delete (currentNode);
             currentNode = nextNode;
         }
         this->NameHead = 0;
