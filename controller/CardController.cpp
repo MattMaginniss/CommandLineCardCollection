@@ -47,6 +47,9 @@ namespace controller {
                 this->collection->InsertNode(card);
             } else if (userMenuChoice.compare("4") == 0) {
                 cout << "Delete Card!" << endl;
+                string cardName;
+                this->display->DisplayMessage("Enter the name of the card you want to delete: ");
+                cardName = this->getInputString();
             } else if (userMenuChoice.compare("5") == 0) {
                 this->display->DisplayMessage("Printing Cards by Name Alphabetically");
                 this->display->PrintCardByNameAscending(this->collection->GetNameHead());
@@ -164,6 +167,14 @@ namespace controller {
         string value;
         ws(cin);
         getline(cin, value);
+        return value;
+    }
+
+    string CardNode::convertToLower(const string &string) const {
+        locale loc;
+        string value = string;
+        for (string::size_type i = 0; i < value.length(); ++i)
+            value[i] = tolower(value[i], loc);
         return value;
     }
 

@@ -17,15 +17,23 @@ enum Condition {
     Pristine
 };
 
-inline std::ostream& operator<<( std::ostream& os, const Condition& enumCondition )
-{
-    switch( enumCondition )
-    {
-        case Poor: os << "Poor"; break;
-        case Good: os << "Good"; break;
-        case Excellent: os << "Excellent"; break;
-        case Mint: os << "Mint"; break;
-        case Pristine: os << "Pristine"; break;
+inline std::ostream &operator<<(std::ostream &os, const Condition &enumCondition) {
+    switch (enumCondition) {
+        case Poor:
+            os << "Poor";
+            break;
+        case Good:
+            os << "Good";
+            break;
+        case Excellent:
+            os << "Excellent";
+            break;
+        case Mint:
+            os << "Mint";
+            break;
+        case Pristine:
+            os << "Pristine";
+            break;
     }
     return os;
 }
@@ -39,7 +47,8 @@ namespace model {
         int value;
 
         void setCondition(const string &condition);
-        string convertToLower(const string &condition) const;
+
+        string convertToLower(const string &string) const;
 
     public:
         CardNode *nextName;

@@ -36,9 +36,9 @@ namespace model {
         }
     }
 
-    string CardNode::convertToLower(const string &condition) const {
+    string CardNode::convertToLower(const string &string) const {
         locale loc;
-        string value = condition;
+        string value = string;
         for (string::size_type i = 0; i < value.length(); ++i)
             value[i] = tolower(value[i], loc);
         return value;

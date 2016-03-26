@@ -33,6 +33,8 @@ namespace controller {
 
         CardNode *createCardFromInput(vector<string> &cardData) const;
 
+        string convertToLower(const string &string) const;
+
     public:
         CardController();
 
