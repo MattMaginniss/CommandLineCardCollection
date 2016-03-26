@@ -20,9 +20,14 @@ namespace controller {
     private:
         CardCollection *collection;
         CardDisplay *display;
+
         string getInputString();
+
         int getInputInt();
+
         CardNode* createCard();
+
+        void saveCardsToFile() const;
     public:
         CardController();
         virtual ~CardController();

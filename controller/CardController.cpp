@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <sstream>
 
 #include "CardController.h"
 
@@ -27,12 +29,12 @@ namespace controller {
         bool running = true;
         this->display->DisplayWelcome();
         while (running) {
-            int userMenuChoice;
+            string userMenuChoice;
 
             this->display->DisplayMenu();
-            userMenuChoice = this->getInputInt();
+            userMenuChoice = this->getInputString();
 
-            if (userMenuChoice == 1) {
+            if (userMenuChoice.compare("1") == 0) {
                 cout << "Load File!" << endl;
                 string filename;
 
@@ -40,47 +42,57 @@ namespace controller {
                 cin >> filename;
 
                 ifstream ifs(filename);
+                string line;
+
 
                 if (!ifs.is_open() || !ifs.good()) {
                     this->display->DisplayMessage("Input file does not exit.");
                 } else {
-                    string value;
-                    getline(ifs, value, ',');
-                    cout << value << endl;
+
+                    while (getline(ifs, line)) {
+                        stringstream lineStream(line);
+                        string data;
+                        vector<string> cardData;
+                        while (getline(lineStream, data, ',')) {
+                            cardData.push_back(data);
+                        }
+
+                        string name = cardData.at(0);
+                        string year = cardData.at(1);;
+                        string condition = cardData.at(2);;
+                        string value = cardData.at(3);;
+                        CardNode *card = new CardNode(name, stoi(year), condition, stoi(value));
+                        this->collection->InsertNode(card);
+                    }
+
                 }
-            } else if (userMenuChoice == 2) {
-                cout << "Save File!" << endl;
-                string filename;
-
-                this->display->DisplayMessage("Please enter a filename to save the card collection to: ");
-                cin >> filename;
-
-                ofstream out(filename);
-                streambuf *coutbuf = cout.rdbuf();
-                cout.rdbuf(out.rdbuf());
-                this->display->PrintCardsForFileFormat(this->collection->GetNameHead());
-                cout.rdbuf(coutbuf);
-                out.close();
-            } else if (userMenuChoice == 3) {
-                CardNode* card = this->createCard();
+            } else if (userMenuChoice.compare("2") == 0) {
+                this->saveCardsToFile();
+            } else if (userMenuChoice.compare("3") == 0) {
+                CardNode *card = this->createCard();
                 this->collection->InsertNode(card);
-                cout << "Insert Card!" << endl;
-            } else if (userMenuChoice == 4) {
+            } else if (userMenuChoice.compare("4") == 0) {
                 cout << "Delete Card!" << endl;
-            } else if (userMenuChoice == 5) {
+            } else if (userMenuChoice.compare("5") == 0) {
+                this->display->DisplayMessage("Printing Cards by Name Alphabetically");
                 this->display->PrintCardByNameAscending(this->collection->GetNameHead());
-            } else if (userMenuChoice == 6) {
+            } else if (userMenuChoice.compare("6") == 0) {
+                this->display->DisplayMessage("Printing Cards by Name Reverse Alphabetically");
                 this->display->PrintCardByNameDescending(this->collection->GetNameHead());
-            } else if (userMenuChoice == 7) {
+            } else if (userMenuChoice.compare("7") == 0) {
+                this->display->DisplayMessage("Printing Cards by Year Ascending");
                 this->display->PrintCardByYearAscending(this->collection->GetYearHead());
-            } else if (userMenuChoice == 8) {
+            } else if (userMenuChoice.compare("8") == 0) {
+                this->display->DisplayMessage("Printing Cards by Year Descending");
                 this->display->PrintCardByYearDescending(this->collection->GetYearHead());
-            } else if (userMenuChoice == 9) {
+            } else if (userMenuChoice.compare("9") == 0) {
+                this->display->DisplayMessage("Printing Cards by Condition Ascending");
                 this->display->PrintCardByConditionAscending(this->collection->GetConditionHead());
-            } else if (userMenuChoice == 10) {
+            } else if (userMenuChoice.compare("10") == 0) {
+                this->display->DisplayMessage("Printing Cards by Condition Descending");
                 this->display->PrintCardByConditionDescending(this->collection->GetConditionHead());
-            } else if (userMenuChoice == 11) {
-                cout <<"Quit" << endl;
+            } else if (userMenuChoice.compare("11") == 0) {
+                cout << "Quit" << endl;
                 running = false;
             } else {
                 cout << "Invalid Input" << endl;
@@ -90,7 +102,22 @@ namespace controller {
 
     }
 
-    CardNode* CardController::createCard() {
+    void CardController::saveCardsToFile() const {
+        cout << "Save File!" << endl;
+        string filename;
+
+        display->DisplayMessage("Please enter a filename to save the card collection to: ");
+        cin >> filename;
+
+        ofstream out(filename);
+        streambuf *coutbuf = cout.rdbuf();
+        cout.rdbuf(out.rdbuf());
+        display->PrintCardsForFileFormat(collection->GetNameHead());
+        cout.rdbuf(coutbuf);
+        out.close();
+    }
+
+    CardNode *CardController::createCard() {
         string cardName;
         int cardYear;
         string cardCondition;
@@ -120,14 +147,14 @@ namespace controller {
     string CardController::getInputString() {
         string value;
         ws(cin);
-        getline(cin,value);
+        getline(cin, value);
         return value;
     }
 
     CardController::~CardController() {
         cout << "In Controller Deconstructor" << endl;
-        delete(this->collection);
-        delete(this->display);
+        delete (this->collection);
+        delete (this->display);
         this->collection = 0;
         this->display = 0;
     }
