@@ -25,14 +25,22 @@ namespace controller {
 
         int getInputInt();
 
-        CardNode* createCard();
+        CardNode *createCard();
 
         void saveCardsToFile() const;
+
+        vector<string> parseLineToData(const string &line) const;
+
+        CardNode *createCardFromInput(vector<string> &cardData) const;
+
     public:
         CardController();
+
         virtual ~CardController();
 
         void Run();
+
+        void loadCardsFromFile() const;
 
     };
 

@@ -17,55 +17,29 @@ namespace controller {
     }
 
     void CardController::Run() {
-        int years[] = {1970, 1925, 2016, 1969, 1950, 1921, 1968, 2014, 2013};
-        string names[] = {"Bobby", "Alex", "Smith", "Zander", "Jack", "Michael", "Matt", "Ryan", "Zach"};
-        string conditions[] = {"Mint", "Poor", "Pristine", "Pristine", "Excellent", "Poor", "Good", "Good", "Mint"};
-        int values[] = {456245, 124, 9342, 1000, 24234, 1000000, 4240242, 12392, 429};
+//        int years[] = {1970, 1925, 2016, 1969, 1950, 1921, 1968, 2014, 2013};
+//        string names[] = {"Bobby", "Alex", "Smith", "Zander", "Jack", "Michael", "Matt", "Ryan", "Zach"};
+//        string conditions[] = {"Mint", "Poor", "Pristine", "Pristine", "Excellent", "Poor", "Good", "Good", "Mint"};
+//        int values[] = {456245, 124, 9342, 1000, 24234, 1000000, 4240242, 12392, 429};
+//
+//        for (int i = 0; i < 9; i++) {
+//            CardNode *card = new CardNode(names[i], years[i], conditions[i], values[i]);
+//            this->collection->InsertNode(card);
+//        }
 
-        for (int i = 0; i < 9; i++) {
-            CardNode *card = new CardNode(names[i], years[i], conditions[i], values[i]);
-            this->collection->InsertNode(card);
-        }
+
+
+
+
         bool running = true;
         this->display->DisplayWelcome();
         while (running) {
             string userMenuChoice;
-
             this->display->DisplayMenu();
             userMenuChoice = this->getInputString();
 
             if (userMenuChoice.compare("1") == 0) {
-                cout << "Load File!" << endl;
-                string filename;
-
-                this->display->DisplayMessage("Please enter a filename containing baseball cards.");
-                cin >> filename;
-
-                ifstream ifs(filename);
-                string line;
-
-
-                if (!ifs.is_open() || !ifs.good()) {
-                    this->display->DisplayMessage("Input file does not exit.");
-                } else {
-
-                    while (getline(ifs, line)) {
-                        stringstream lineStream(line);
-                        string data;
-                        vector<string> cardData;
-                        while (getline(lineStream, data, ',')) {
-                            cardData.push_back(data);
-                        }
-
-                        string name = cardData.at(0);
-                        string year = cardData.at(1);;
-                        string condition = cardData.at(2);;
-                        string value = cardData.at(3);;
-                        CardNode *card = new CardNode(name, stoi(year), condition, stoi(value));
-                        this->collection->InsertNode(card);
-                    }
-
-                }
+                this->loadCardsFromFile();
             } else if (userMenuChoice.compare("2") == 0) {
                 this->saveCardsToFile();
             } else if (userMenuChoice.compare("3") == 0) {
@@ -92,27 +66,69 @@ namespace controller {
                 this->display->DisplayMessage("Printing Cards by Condition Descending");
                 this->display->PrintCardByConditionDescending(this->collection->GetConditionHead());
             } else if (userMenuChoice.compare("11") == 0) {
-                cout << "Quit" << endl;
+                this->display->DisplayMessage("You have quit Matt Maginniss' Baseball Card Collector");
                 running = false;
             } else {
-                cout << "Invalid Input" << endl;
+                this->display->DisplayMessage("Invalid Input");
             }
         }
 
 
     }
 
+    void CardController::loadCardsFromFile() const {
+        string filename;
+
+        this->display->DisplayMessage("Please enter a filename containing baseball cards.");
+        cin >> filename;
+
+        ifstream ifs(filename);
+        string line;
+
+
+        if (!ifs.is_open() || !ifs.good()) {
+            this->display->DisplayMessage("Input file does not exit.");
+        } else {
+
+            while (getline(ifs, line)) {
+                vector<string> cardData = parseLineToData(line);
+                CardNode *card = createCardFromInput(cardData);
+                this->collection->InsertNode(card);
+            }
+
+        }
+    }
+
+    CardNode *CardController::createCardFromInput(vector<string> &cardData) const {
+        string name = cardData.at(0);
+        string year = cardData.at(1);;
+        string condition = cardData.at(2);;
+        string value = cardData.at(3);;
+        CardNode *card = new CardNode(name, stoi(year), condition, stoi(value));
+        return card;
+    }
+
+    vector<string> CardController::parseLineToData(const string &line) const {
+        stringstream lineStream(line);
+        string data;
+        vector<string> cardData;
+        while (getline(lineStream, data, ',')) {
+            cardData.push_back(data);
+        }
+        return cardData;
+    }
+
     void CardController::saveCardsToFile() const {
         cout << "Save File!" << endl;
         string filename;
 
-        display->DisplayMessage("Please enter a filename to save the card collection to: ");
+        this->display->DisplayMessage("Please enter a filename to save the card collection to: ");
         cin >> filename;
 
         ofstream out(filename);
         streambuf *coutbuf = cout.rdbuf();
         cout.rdbuf(out.rdbuf());
-        display->PrintCardsForFileFormat(collection->GetNameHead());
+        this->display->PrintCardsForFileFormat(collection->GetNameHead());
         cout.rdbuf(coutbuf);
         out.close();
     }
@@ -122,16 +138,16 @@ namespace controller {
         int cardYear;
         string cardCondition;
         int cardValue;
-        display->DisplayMessage("Enter Player Name: ");
+        this->display->DisplayMessage("Enter Player Name: ");
         cardName = this->getInputString();
 
-        display->DisplayMessage("Enter Card Year: ");
+        this->display->DisplayMessage("Enter Card Year: ");
         cardYear = this->getInputInt();
 
-        display->DisplayMessage("Enter Card Condition(Pristine, Mint, Excellent, Good, Poor): ");
+        this->display->DisplayMessage("Enter Card Condition(Pristine, Mint, Excellent, Good, Poor): ");
         cardCondition = this->getInputString();
 
-        display->DisplayMessage("Enter Card Value: ");
+        this->display->DisplayMessage("Enter Card Value: ");
         cardValue = this->getInputInt();
 
         CardNode *card = new CardNode(cardName, cardYear, cardCondition, cardValue);
