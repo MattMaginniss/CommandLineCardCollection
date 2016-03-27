@@ -172,7 +172,6 @@ namespace controller {
     }
 
     CardController::~CardController() {
-        cout << "In Controller Deconstructor" << endl;
         delete (this->collection);
         delete (this->display);
         this->collection = 0;

@@ -166,8 +166,6 @@ namespace model {
     }
 
     CardCollection::~CardCollection() {
-        cout << "In Collection DeConstructor" << endl;
-
         CardNode *currentNode = this->YearHead;
 
         while (currentNode != 0) {

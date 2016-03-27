@@ -75,7 +75,6 @@ namespace model {
     }
 
     CardNode::~CardNode() {
-        cout << "Deleting: " << this->name << " " << this->year << " " << this->condition << " " << this->value << endl;
         this->nextName = 0;
         this->nextYear = 0;
         this->nextCondition = 0;
