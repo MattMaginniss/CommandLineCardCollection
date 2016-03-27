@@ -17,30 +17,51 @@ namespace view {
         void displayCardDataConsoleFormat(const CardNode *card);
 
     public:
-        CardDisplay();
-
-
+        // This will recursively print out all cards by their name in
+        // alphabetical order formatted for the console.
+        // @param *card the card to have its details printed to the console.
         void PrintCardByNameAscending(const CardNode *card);
 
+        // This will recursively print out all cards by their year in
+        // ascending order formatted for the console.
+        // @param *card the card to have its details printed to the console.
         void PrintCardByYearAscending(const CardNode *card);
 
+        // This will recursively print out all cards by their condition in
+        // acsending order formatted for the console.
+        // @param *card the card to have its details printed to the console.
         void PrintCardByConditionAscending(const CardNode *card);
 
+        // This will recursively print out all cards by their name in
+        // reverse alphabetical order formatted for the console.
+        // @param *card the card to have its details printed to the console.
         void PrintCardByNameDescending(const CardNode *card);
 
+        // This will recursively print out all cards by their year in
+        // descending order formatted for the console.
+        // @param *card the card to have its details printed to the console.
         void PrintCardByYearDescending(const CardNode *card);
 
+        // This will recursively print out all cards by their condition in
+        // descending order formatted for the console.
+        // @param *card the card to have its details printed to the console.
         void PrintCardByConditionDescending(const CardNode *card);
 
+        // This will recursively print out all cards by their name in
+        // alphabetical order formatted specifically for an output file.
+        // @param *card the card to have its details printed to the file.
         void PrintCardsForFileFormat(const CardNode *card);
 
+        // This will display the menu to the console to instruct them how
+        // to interact with the program
         void DisplayMenu();
 
+        // This will display the message passed in to the console.
+        // @param message the message to be displayed.
         void DisplayMessage(const string &message);
 
+        // This will display the introduction to the program to the console.
         void DisplayWelcome();
-
-
     };
 
 }

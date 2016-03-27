@@ -7,36 +7,30 @@
 #include "CardDisplay.h"
 
 namespace view {
-
-    CardDisplay::CardDisplay() {
-
-    }
-
-
     void CardDisplay::PrintCardByNameAscending(const CardNode *card) {
         if (card != 0) {
             this->displayCardDataConsoleFormat(card);
-            this->PrintCardByNameAscending(card->nextName);
+            this->PrintCardByNameAscending(card->GetNextName());
         }
     }
 
     void CardDisplay::PrintCardByYearAscending(const CardNode *card) {
         if (card != 0) {
             this->displayCardDataConsoleFormat(card);
-            this->PrintCardByYearAscending(card->nextYear);
+            this->PrintCardByYearAscending(card->GetNextYear());
         }
     }
 
     void CardDisplay::PrintCardByConditionAscending(const CardNode *card) {
         if (card != 0) {
             this->displayCardDataConsoleFormat(card);
-            this->PrintCardByConditionAscending(card->nextCondition);
+            this->PrintCardByConditionAscending(card->GetNextCondition());
         }
     }
 
     void CardDisplay::PrintCardByNameDescending(const CardNode *card) {
         if (card != 0) {
-            this->PrintCardByNameDescending(card->nextName);
+            this->PrintCardByNameDescending(card->GetNextName());
             this->displayCardDataConsoleFormat(card);
         }
 
@@ -44,7 +38,7 @@ namespace view {
 
     void CardDisplay::PrintCardByYearDescending(const CardNode *card) {
         if (card != 0) {
-            this->PrintCardByYearDescending(card->nextYear);
+            this->PrintCardByYearDescending(card->GetNextYear());
             this->displayCardDataConsoleFormat(card);
         }
 
@@ -52,7 +46,7 @@ namespace view {
 
     void CardDisplay::PrintCardByConditionDescending(const CardNode *card) {
         if (card != 0) {
-            this->PrintCardByConditionDescending(card->nextCondition);
+            this->PrintCardByConditionDescending(card->GetNextCondition());
             this->displayCardDataConsoleFormat(card);
         }
     }
@@ -60,7 +54,7 @@ namespace view {
     void CardDisplay::PrintCardsForFileFormat(const CardNode *card) {
         if (card != 0) {
             this->displayCardDataFileFormat(card);
-            this->PrintCardsForFileFormat(card->nextName);
+            this->PrintCardsForFileFormat(card->GetNextName());
         }
     }
 

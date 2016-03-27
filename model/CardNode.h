@@ -45,15 +45,15 @@ namespace model {
         int year;
         Condition condition;
         int value;
+        CardNode *nextName;
+        CardNode *nextYear;
+        CardNode *nextCondition;
 
         void setCondition(const string &condition);
 
         string convertToLower(const string &toBeConverted) const;
 
     public:
-        CardNode *nextName;
-        CardNode *nextYear;
-        CardNode *nextCondition;
 
         CardNode(string name, int year, string condition, int value);
 
@@ -66,6 +66,12 @@ namespace model {
         Condition GetCondition() const;
 
         int GetValue() const;
+
+        CardNode *GetNextName() const;
+
+        CardNode *GetNextYear() const;
+
+        CardNode *GetNextCondition() const;
 
         void SetNextName(CardNode *nextName);
 

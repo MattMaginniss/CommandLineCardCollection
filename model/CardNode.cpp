@@ -80,4 +80,16 @@ namespace model {
         this->nextCondition = 0;
 
     }
+
+    CardNode *CardNode::GetNextName() const {
+        return this->nextName;
+    }
+
+    CardNode *CardNode::GetNextYear() const {
+        return this->nextYear;
+    }
+
+    CardNode *CardNode::GetNextCondition() const {
+        return this->nextCondition;
+    }
 }
