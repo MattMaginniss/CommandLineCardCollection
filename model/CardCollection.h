@@ -32,7 +32,7 @@ namespace model {
         // Constructor for a CardCollection object.
         CardCollection();
 
-        // Deconstructor for a CardCollection object.
+        // Destructor for a CardCollection object.
         virtual ~CardCollection();
 
         // Getter for the Name head of the list.

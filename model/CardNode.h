@@ -61,7 +61,7 @@ namespace model {
         // @param value the value of the card node object.
         CardNode(string name, int year, string condition, int value);
 
-        // Deconstructor for CardNode object.
+        // Destructor for CardNode object.
         virtual ~CardNode();
 
         // Getter for the name of the card.

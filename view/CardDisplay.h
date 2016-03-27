@@ -28,7 +28,7 @@ namespace view {
         void PrintCardByYearAscending(const CardNode *card, int nameWidth);
 
         // This will recursively print out all cards by their condition in
-        // acsending order formatted for the console.
+        // ascending order formatted for the console.
         // @param *card the card to have its details printed to the console.
         void PrintCardByConditionAscending(const CardNode *card, int nameWidth);
 

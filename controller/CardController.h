@@ -58,7 +58,7 @@ namespace controller {
         // Constructor for a CardController object.
         CardController();
 
-        // Deconstructor for a CardController object.
+        // Destructor for a CardController object.
         virtual ~CardController();
 
         // This method is primary running loop of the program.
