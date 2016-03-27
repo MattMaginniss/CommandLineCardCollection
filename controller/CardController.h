@@ -39,6 +39,21 @@ namespace controller {
 
         void deleteCardsFromCollection();
 
+        void displayCardsAlphabetically() const;
+
+        void displayCardReverseAlphabetically() const;
+
+        void displayCardsByYearAscending() const;
+
+        void displayCardsByYearDescending() const;
+
+        void displayCardsByConditionAscending() const;
+
+        void displayCardsByConditionDescending() const;
+
+        CardNode *checkForCardInputValidity(const string &cardName, int cardYear, string &cardCondition, int cardValue);
+
+
     public:
         // Constructor for a CardController object.
         CardController();
@@ -48,6 +63,7 @@ namespace controller {
 
         // This method is primary running loop of the program.
         void Run();
+
     };
 
 }

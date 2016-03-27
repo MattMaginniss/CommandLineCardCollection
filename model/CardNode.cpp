@@ -9,6 +9,12 @@ namespace model {
 
 
     CardNode::CardNode(string name, int year, string condition, int value) {
+        if (year < 0) {
+            throw string("Invalid Year");
+        }
+        if (value <= 0) {
+            throw string("Invalid Value");
+        }
         this->name = name;
         this->year = year;
         this->setCondition(condition);
@@ -32,7 +38,7 @@ namespace model {
         } else if (value.compare("pristine") == 0) {
             CardNode::condition = Pristine;
         } else {
-            throw 0;
+            throw string("Invalid Condition");
         }
     }
 

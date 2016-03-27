@@ -7,7 +7,6 @@ using namespace std;
 using namespace controller;
 
 int main() {
-    cout << "Hello, World!" << endl;
     CardController controller;
     controller.Run();
     return 0;

@@ -34,29 +34,77 @@ namespace controller {
             } else if (userMenuChoice.compare("4") == 0) {
                 this->deleteCardsFromCollection();
             } else if (userMenuChoice.compare("5") == 0) {
-                this->display->DisplayMessage("Printing Cards by Name Alphabetically");
-                this->display->PrintCardByNameAscending(this->collection->GetNameHead());
+                this->displayCardsAlphabetically();
             } else if (userMenuChoice.compare("6") == 0) {
-                this->display->DisplayMessage("Printing Cards by Name Reverse Alphabetically");
-                this->display->PrintCardByNameDescending(this->collection->GetNameHead());
+                this->displayCardReverseAlphabetically();
             } else if (userMenuChoice.compare("7") == 0) {
-                this->display->DisplayMessage("Printing Cards by Year Ascending");
-                this->display->PrintCardByYearAscending(this->collection->GetYearHead());
+                this->displayCardsByYearAscending();
             } else if (userMenuChoice.compare("8") == 0) {
-                this->display->DisplayMessage("Printing Cards by Year Descending");
-                this->display->PrintCardByYearDescending(this->collection->GetYearHead());
+                this->displayCardsByYearDescending();
             } else if (userMenuChoice.compare("9") == 0) {
-                this->display->DisplayMessage("Printing Cards by Condition Ascending");
-                this->display->PrintCardByConditionAscending(this->collection->GetConditionHead());
+                this->displayCardsByConditionAscending();
             } else if (userMenuChoice.compare("10") == 0) {
-                this->display->DisplayMessage("Printing Cards by Condition Descending");
-                this->display->PrintCardByConditionDescending(this->collection->GetConditionHead());
+                this->displayCardsByConditionDescending();
             } else if (userMenuChoice.compare("11") == 0) {
                 this->display->DisplayMessage("You have quit Matt Maginniss' Baseball Card Collector");
                 running = false;
             } else {
                 this->display->DisplayMessage("Invalid Input");
             }
+        }
+    }
+
+    void CardController::displayCardsByConditionDescending() const {
+        if (collection->GetConditionHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Condition Descending");
+            display->PrintCardByConditionDescending(collection->GetConditionHead());
+        }
+    }
+
+    void CardController::displayCardsByConditionAscending() const {
+        if (collection->GetConditionHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Condition Ascending");
+            display->PrintCardByConditionAscending(collection->GetConditionHead());
+        }
+    }
+
+    void CardController::displayCardsByYearDescending() const {
+        if (collection->GetYearHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Year Descending");
+            display->PrintCardByYearDescending(collection->GetYearHead());
+        }
+    }
+
+    void CardController::displayCardsByYearAscending() const {
+        if (collection->GetYearHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Year Ascending");
+            display->PrintCardByYearAscending(collection->GetYearHead());
+        }
+    }
+
+    void CardController::displayCardReverseAlphabetically() const {
+        if (collection->GetNameHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Name Reverse Alphabetically");
+            display->PrintCardByNameDescending(collection->GetNameHead());
+        }
+    }
+
+    void CardController::displayCardsAlphabetically() const {
+        if (collection->GetNameHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Name Alphabetically");
+            display->PrintCardByNameAscending(collection->GetNameHead());
         }
     }
 
@@ -125,7 +173,11 @@ namespace controller {
 
         this->display->DisplayMessage("Please enter a filename to save the card collection to: ");
         cin >> filename;
-
+        ifstream infile(filename);
+        if (infile.good()) {
+            this->display->DisplayMessage(filename + " already exists and has been overwritten.");
+        }
+        infile.close();
         ofstream out(filename);
         streambuf *coutbuf = cout.rdbuf();
         cout.rdbuf(out.rdbuf());
@@ -139,6 +191,7 @@ namespace controller {
         int cardYear;
         string cardCondition;
         int cardValue;
+
         this->display->DisplayMessage("Enter Player Name: ");
         cardName = this->getInputString();
 
@@ -148,16 +201,55 @@ namespace controller {
         this->display->DisplayMessage("Enter Card Condition(Pristine, Mint, Excellent, Good, Poor): ");
         cardCondition = this->getInputString();
 
+
         this->display->DisplayMessage("Enter Card Value: ");
         cardValue = this->getInputInt();
 
-        CardNode *card = new CardNode(cardName, cardYear, cardCondition, cardValue);
+        CardNode *card;
+        card = this->checkForCardInputValidity(cardName, cardYear, cardCondition, cardValue);
+
+
+        return card;
+    }
+
+    CardNode *CardController::checkForCardInputValidity(const string &cardName, int cardYear, string &cardCondition,
+                                                        int cardValue) {
+        CardNode *card;
+        bool valid = false;
+        while (!valid) {
+            try {
+                card = new CardNode(cardName, cardYear, cardCondition, cardValue);
+                valid = true;
+            } catch (string errorCode) {
+                if (errorCode.compare("Invalid Year") == 0) {
+                    this->display->DisplayMessage("Card year is invalid. Must be a positive number.");
+                    this->display->DisplayMessage("Please enter the card year: ");
+                    cardYear = this->getInputInt();
+                }
+                if (errorCode.compare("Invalid Condition") == 0) {
+                    display->DisplayMessage(cardCondition + " is an invalid Condition.");
+                    display->DisplayMessage("Enter Card Condition(Pristine, Mint, Excellent, Good, Poor): ");
+                    cardCondition = this->getInputString();
+                }
+                if (errorCode.compare("Invalid Value") == 0) {
+                    display->DisplayMessage("Card Value is not valid. Must be a number greater than 0.");
+                    display->DisplayMessage("Please enter the card value: ");
+                    cardValue = this->getInputInt();
+                }
+            }
+        }
         return card;
     }
 
     int CardController::getInputInt() {
+        string input;
+        cin >> input;
         int value;
-        cin >> value;
+        try {
+            value = stoi(input);
+        } catch (invalid_argument) {
+            value = -1;
+        }
         return value;
     }
 
