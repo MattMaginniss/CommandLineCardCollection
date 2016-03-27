@@ -14,38 +14,38 @@ namespace view {
     private:
         void displayCardDataFileFormat(const CardNode *card);
 
-        void displayCardDataConsoleFormat(const CardNode *card);
+        void displayCardDataConsoleFormat(const CardNode *card, int nameWidth);
 
     public:
         // This will recursively print out all cards by their name in
         // alphabetical order formatted for the console.
         // @param *card the card to have its details printed to the console.
-        void PrintCardByNameAscending(const CardNode *card);
+        void PrintCardByNameAscending(const CardNode *card, int nameWidth);
 
         // This will recursively print out all cards by their year in
         // ascending order formatted for the console.
         // @param *card the card to have its details printed to the console.
-        void PrintCardByYearAscending(const CardNode *card);
+        void PrintCardByYearAscending(const CardNode *card, int nameWidth);
 
         // This will recursively print out all cards by their condition in
         // acsending order formatted for the console.
         // @param *card the card to have its details printed to the console.
-        void PrintCardByConditionAscending(const CardNode *card);
+        void PrintCardByConditionAscending(const CardNode *card, int nameWidth);
 
         // This will recursively print out all cards by their name in
         // reverse alphabetical order formatted for the console.
         // @param *card the card to have its details printed to the console.
-        void PrintCardByNameDescending(const CardNode *card);
+        void PrintCardByNameDescending(const CardNode *card, int nameWidth);
 
         // This will recursively print out all cards by their year in
         // descending order formatted for the console.
         // @param *card the card to have its details printed to the console.
-        void PrintCardByYearDescending(const CardNode *card);
+        void PrintCardByYearDescending(const CardNode *card, int nameWidth);
 
         // This will recursively print out all cards by their condition in
         // descending order formatted for the console.
         // @param *card the card to have its details printed to the console.
-        void PrintCardByConditionDescending(const CardNode *card);
+        void PrintCardByConditionDescending(const CardNode *card, int nameWidth);
 
         // This will recursively print out all cards by their name in
         // alphabetical order formatted specifically for an output file.

@@ -7,47 +7,47 @@
 #include "CardDisplay.h"
 
 namespace view {
-    void CardDisplay::PrintCardByNameAscending(const CardNode *card) {
+    void CardDisplay::PrintCardByNameAscending(const CardNode *card, int nameWidth) {
         if (card != 0) {
-            this->displayCardDataConsoleFormat(card);
-            this->PrintCardByNameAscending(card->GetNextName());
+            this->displayCardDataConsoleFormat(card, nameWidth);
+            this->PrintCardByNameAscending(card->GetNextName(), nameWidth);
         }
     }
 
-    void CardDisplay::PrintCardByYearAscending(const CardNode *card) {
+    void CardDisplay::PrintCardByYearAscending(const CardNode *card, int nameWidth) {
         if (card != 0) {
-            this->displayCardDataConsoleFormat(card);
-            this->PrintCardByYearAscending(card->GetNextYear());
+            this->displayCardDataConsoleFormat(card, nameWidth);
+            this->PrintCardByYearAscending(card->GetNextYear(), nameWidth);
         }
     }
 
-    void CardDisplay::PrintCardByConditionAscending(const CardNode *card) {
+    void CardDisplay::PrintCardByConditionAscending(const CardNode *card, int nameWidth) {
         if (card != 0) {
-            this->displayCardDataConsoleFormat(card);
-            this->PrintCardByConditionAscending(card->GetNextCondition());
+            this->displayCardDataConsoleFormat(card, nameWidth);
+            this->PrintCardByConditionAscending(card->GetNextCondition(), nameWidth);
         }
     }
 
-    void CardDisplay::PrintCardByNameDescending(const CardNode *card) {
+    void CardDisplay::PrintCardByNameDescending(const CardNode *card, int nameWidth) {
         if (card != 0) {
-            this->PrintCardByNameDescending(card->GetNextName());
-            this->displayCardDataConsoleFormat(card);
-        }
-
-    }
-
-    void CardDisplay::PrintCardByYearDescending(const CardNode *card) {
-        if (card != 0) {
-            this->PrintCardByYearDescending(card->GetNextYear());
-            this->displayCardDataConsoleFormat(card);
+            this->PrintCardByNameDescending(card->GetNextName(), nameWidth);
+            this->displayCardDataConsoleFormat(card, nameWidth);
         }
 
     }
 
-    void CardDisplay::PrintCardByConditionDescending(const CardNode *card) {
+    void CardDisplay::PrintCardByYearDescending(const CardNode *card, int nameWidth) {
         if (card != 0) {
-            this->PrintCardByConditionDescending(card->GetNextCondition());
-            this->displayCardDataConsoleFormat(card);
+            this->PrintCardByYearDescending(card->GetNextYear(), nameWidth);
+            this->displayCardDataConsoleFormat(card, nameWidth);
+        }
+
+    }
+
+    void CardDisplay::PrintCardByConditionDescending(const CardNode *card, int nameWidth) {
+        if (card != 0) {
+            this->PrintCardByConditionDescending(card->GetNextCondition(), nameWidth);
+            this->displayCardDataConsoleFormat(card, nameWidth);
         }
     }
 
@@ -91,9 +91,10 @@ namespace view {
         cout << "--------------------------------------------------" << endl;
     }
 
-    void CardDisplay::displayCardDataConsoleFormat(const CardNode *card) {
+    void CardDisplay::displayCardDataConsoleFormat(const CardNode *card, int nameWidth) {
         string value = "$" + to_string(card->GetValue()) + ".00";
-        cout << setw(25) << left << card->GetName() << setw(6) << left << card->GetYear() << setw(12) << left <<
+        cout << setw(nameWidth + 1) << left << card->GetName() << setw(6) << left << card->GetYear() << setw(12) <<
+        left <<
         card->GetCondition() << setw(15) << right << value << endl;
 
     }
