@@ -228,15 +228,15 @@ namespace controller {
                     this->display->DisplayMessage("Please enter the card year: ");
                     cardYear = this->getInputInt();
                 }
-                if (errorCode.compare("Invalid Condition") == 0) {
-                    display->DisplayMessage(cardCondition + " is an invalid Condition.");
-                    display->DisplayMessage("Enter Card Condition(Pristine, Mint, Excellent, Good, Poor): ");
-                    cardCondition = this->getInputString();
-                }
                 if (errorCode.compare("Invalid Value") == 0) {
                     display->DisplayMessage("Card Value is not valid. Must be a number greater than 0.");
                     display->DisplayMessage("Please enter the card value: ");
                     cardValue = this->getInputInt();
+                }
+                if (errorCode.compare("Invalid Condition") == 0) {
+                    display->DisplayMessage(cardCondition + " is an invalid Condition.");
+                    display->DisplayMessage("Enter Card Condition(Pristine, Mint, Excellent, Good, Poor): ");
+                    cardCondition = this->getInputString();
                 }
             }
         }
