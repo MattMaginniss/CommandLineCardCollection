@@ -3,6 +3,7 @@
 //
 
 #include "CardCollection.h"
+#include <algorithm>
 
 namespace model {
 
@@ -17,14 +18,19 @@ namespace model {
             this->NameHead = node;
             this->YearHead = node;
             this->ConditionHead = node;
+            this->largestNameLength = (int) node->GetName().size();
         } else {
-            CardNode *previousYearNode = this->YearHead;
             CardNode *previousNameNode = this->NameHead;
+            CardNode *previousYearNode = this->YearHead;
             CardNode *previousConditionNode = this->ConditionHead;
 
             this->insertCardByName(node, previousNameNode);
             this->insertCardByYear(node, previousYearNode);
             this->insertCardByCondition(node, previousConditionNode);
+
+            if ((int) node->GetName().size() > this->largestNameLength) {
+                this->largestNameLength = (int) node->GetName().size();
+            }
         }
     }
 
@@ -41,13 +47,13 @@ namespace model {
     }
 
     void CardCollection::insertCardByName(CardNode *node, CardNode *previousNameNode) {
-        if (this->convertToLower(node->GetName()) <= this->convertToLower(this->NameHead->GetName())) {
+        if (node->GetLowerName() <= this->NameHead->GetLowerName()) {
             node->SetNextName(this->NameHead);
             this->NameHead = node;
         } else if (previousNameNode->GetNextName() == 0) {
             previousNameNode->SetNextName(node);
-        } else if (this->convertToLower(node->GetName()) <=
-                   this->convertToLower(previousNameNode->GetNextName()->GetName())) {
+        } else if (node->GetLowerName() <=
+                   previousNameNode->GetNextName()->GetLowerName()) {
             node->SetNextName(previousNameNode->GetNextName());
             previousNameNode->SetNextName(node);
         } else {
@@ -96,12 +102,12 @@ namespace model {
     }
 
     CardNode *CardCollection::FindCardNode(string cardName) {
-        string name = this->convertToLower(cardName);
+        string name = cardName;
+        transform(name.begin(), name.end(), name.begin(), ::tolower);
         CardNode *node = this->NameHead;
         CardNode *correctNode = 0;
         while (node != 0) {
-            string currentNodeName = this->convertToLower(node->GetName());
-            if (name.compare(currentNodeName) == 0) {
+            if (name.compare(node->GetLowerName()) == 0) {
                 correctNode = node;
                 node = 0;
             } else {
@@ -109,14 +115,6 @@ namespace model {
             }
         }
         return correctNode;
-    }
-
-    string CardCollection::convertToLower(const string &toBeConverted) const {
-        locale loc;
-        string value = toBeConverted;
-        for (string::size_type i = 0; i < value.length(); ++i)
-            value[i] = tolower(value[i], loc);
-        return value;
     }
 
     void CardCollection::deleteCardByName(CardNode *node, CardNode *previousNameNode) {
@@ -178,5 +176,9 @@ namespace model {
         this->NameHead = 0;
         this->YearHead = 0;
         this->ConditionHead = 0;
+    }
+
+    int CardCollection::GetLargestNameLength() {
+        return this->largestNameLength;
     }
 }

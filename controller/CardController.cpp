@@ -59,7 +59,8 @@ namespace controller {
             display->DisplayMessage("There are not currently any cards in the collector.");
         } else {
             display->DisplayMessage("Printing Cards by Condition Descending");
-            display->PrintCardByConditionDescending(collection->GetConditionHead());
+            display->PrintCardByConditionDescending(collection->GetConditionHead(),
+                                                    this->collection->GetLargestNameLength());
         }
     }
 
@@ -68,7 +69,8 @@ namespace controller {
             display->DisplayMessage("There are not currently any cards in the collector.");
         } else {
             display->DisplayMessage("Printing Cards by Condition Ascending");
-            display->PrintCardByConditionAscending(collection->GetConditionHead());
+            display->PrintCardByConditionAscending(collection->GetConditionHead(),
+                                                   this->collection->GetLargestNameLength());
         }
     }
 
@@ -77,7 +79,7 @@ namespace controller {
             display->DisplayMessage("There are not currently any cards in the collector.");
         } else {
             display->DisplayMessage("Printing Cards by Year Descending");
-            display->PrintCardByYearDescending(collection->GetYearHead());
+            display->PrintCardByYearDescending(collection->GetYearHead(), this->collection->GetLargestNameLength());
         }
     }
 
@@ -86,7 +88,7 @@ namespace controller {
             display->DisplayMessage("There are not currently any cards in the collector.");
         } else {
             display->DisplayMessage("Printing Cards by Year Ascending");
-            display->PrintCardByYearAscending(collection->GetYearHead());
+            display->PrintCardByYearAscending(collection->GetYearHead(), this->collection->GetLargestNameLength());
         }
     }
 
@@ -95,7 +97,7 @@ namespace controller {
             display->DisplayMessage("There are not currently any cards in the collector.");
         } else {
             display->DisplayMessage("Printing Cards by Name Reverse Alphabetically");
-            display->PrintCardByNameDescending(collection->GetNameHead());
+            display->PrintCardByNameDescending(collection->GetNameHead(), this->collection->GetLargestNameLength());
         }
     }
 
@@ -104,7 +106,7 @@ namespace controller {
             display->DisplayMessage("There are not currently any cards in the collector.");
         } else {
             display->DisplayMessage("Printing Cards by Name Alphabetically");
-            display->PrintCardByNameAscending(collection->GetNameHead());
+            display->PrintCardByNameAscending(collection->GetNameHead(), this->collection->GetLargestNameLength());
         }
     }
 
@@ -150,9 +152,9 @@ namespace controller {
 
     CardNode *CardController::createCardFromInput(vector<string> &cardData) const {
         string name = cardData.at(0);
-        string year = cardData.at(1);;
-        string condition = cardData.at(2);;
-        string value = cardData.at(3);;
+        string year = cardData.at(1);
+        string condition = cardData.at(2);
+        string value = cardData.at(3);
         CardNode *card = new CardNode(name, stoi(year), condition, stoi(value));
 
         return card;
@@ -222,7 +224,7 @@ namespace controller {
                 valid = true;
             } catch (string errorCode) {
                 if (errorCode.compare("Invalid Year") == 0) {
-                    this->display->DisplayMessage("Card year is invalid. Must be a positive number.");
+                    this->display->DisplayMessage("Card year is invalid. Must be after 1860.");
                     this->display->DisplayMessage("Please enter the card year: ");
                     cardYear = this->getInputInt();
                 }
@@ -247,7 +249,7 @@ namespace controller {
         int value;
         try {
             value = stoi(input);
-        } catch (invalid_argument) {
+        } catch (...) {
             value = -1;
         }
         return value;

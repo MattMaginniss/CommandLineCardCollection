@@ -14,14 +14,13 @@ namespace model {
         CardNode *NameHead;
         CardNode *YearHead;
         CardNode *ConditionHead;
+        int largestNameLength = 0;
 
         void insertCardByName(CardNode *node, CardNode *previousNameNode);
 
         void insertCardByYear(CardNode *node, CardNode *previousYearNode);
 
         void insertCardByCondition(CardNode *node, CardNode *previousConditionNode);
-
-        string convertToLower(const string &toBeConverted) const;
 
         void deleteCardByName(CardNode *node, CardNode *previousNameNode);
 
@@ -56,6 +55,9 @@ namespace model {
         // This will find a card node in the list by name and return the location of the node.
         // @param cardName the name of the card to be found within the list.
         CardNode *FindCardNode(string cardName);
+
+        // This will return the length of the largest
+        int GetLargestNameLength();
 
     };
 }
