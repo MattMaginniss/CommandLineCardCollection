@@ -48,10 +48,9 @@ namespace model {
         CardNode *nextName;
         CardNode *nextYear;
         CardNode *nextCondition;
+        string lowerName;
 
         void setCondition(const string &condition);
-
-        string convertToLower(const string &toBeConverted) const;
 
     public:
 
@@ -97,6 +96,9 @@ namespace model {
         // Setter for the next condition card object.
         // @param *nextCondition the card object to be set as the next condition.
         void SetNextCondition(CardNode *nextCondition);
+
+        // This gets the name in all lower case for comparisons.
+        string GetLowerName();
 
     };
 }

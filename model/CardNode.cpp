@@ -3,13 +3,13 @@
 //
 
 #include "CardNode.h"
-
+#include <algorithm>
 
 namespace model {
 
 
     CardNode::CardNode(string name, int year, string condition, int value) {
-        if (year < 0) {
+        if (year < 1960) {
             throw string("Invalid Year");
         }
         if (value <= 0) {
@@ -22,10 +22,13 @@ namespace model {
         this->nextName = 0;
         this->nextYear = 0;
         this->nextCondition = 0;
+        transform(name.begin(), name.end(), name.begin(), ::tolower);
+        this->lowerName = name;
     }
 
     void CardNode::setCondition(const string &condition) {
-        string value = convertToLower(condition);
+        string value = condition;
+        transform(value.begin(), value.end(), value.begin(), ::tolower);
 
         if (value.compare("poor") == 0) {
             CardNode::condition = Poor;
@@ -40,15 +43,6 @@ namespace model {
         } else {
             throw string("Invalid Condition");
         }
-    }
-
-    string CardNode::convertToLower(const string &toBeConverted) const {
-        locale loc;
-        string value = toBeConverted;
-        for (string::size_type i = 0; i < value.length(); ++i) {
-            value[i] = tolower(value[i], loc);
-        }
-        return value;
     }
 
 
@@ -97,5 +91,9 @@ namespace model {
 
     CardNode *CardNode::GetNextCondition() const {
         return this->nextCondition;
+    }
+
+    string CardNode::GetLowerName() {
+        return this->lowerName;
     }
 }
