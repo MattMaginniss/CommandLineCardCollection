@@ -54,81 +54,6 @@ namespace controller {
         }
     }
 
-    void CardController::displayCardsByConditionDescending() const {
-        if (collection->GetConditionHead() == 0) {
-            display->DisplayMessage("There are not currently any cards in the collector.");
-        } else {
-            display->DisplayMessage("Printing Cards by Condition Descending");
-            display->PrintCardByConditionDescending(collection->GetConditionHead(),
-                                                    this->collection->GetLargestNameLength());
-        }
-    }
-
-    void CardController::displayCardsByConditionAscending() const {
-        if (collection->GetConditionHead() == 0) {
-            display->DisplayMessage("There are not currently any cards in the collector.");
-        } else {
-            display->DisplayMessage("Printing Cards by Condition Ascending");
-            display->PrintCardByConditionAscending(collection->GetConditionHead(),
-                                                   this->collection->GetLargestNameLength());
-        }
-    }
-
-    void CardController::displayCardsByYearDescending() const {
-        if (collection->GetYearHead() == 0) {
-            display->DisplayMessage("There are not currently any cards in the collector.");
-        } else {
-            display->DisplayMessage("Printing Cards by Year Descending");
-            display->PrintCardByYearDescending(collection->GetYearHead(), this->collection->GetLargestNameLength());
-        }
-    }
-
-    void CardController::displayCardsByYearAscending() const {
-        if (collection->GetYearHead() == 0) {
-            display->DisplayMessage("There are not currently any cards in the collector.");
-        } else {
-            display->DisplayMessage("Printing Cards by Year Ascending");
-            display->PrintCardByYearAscending(collection->GetYearHead(), this->collection->GetLargestNameLength());
-        }
-    }
-
-    void CardController::displayCardReverseAlphabetically() const {
-        if (collection->GetNameHead() == 0) {
-            display->DisplayMessage("There are not currently any cards in the collector.");
-        } else {
-            display->DisplayMessage("Printing Cards by Name Reverse Alphabetically");
-            display->PrintCardByNameDescending(collection->GetNameHead(), this->collection->GetLargestNameLength());
-        }
-    }
-
-    void CardController::displayCardsAlphabetically() const {
-        if (collection->GetNameHead() == 0) {
-            display->DisplayMessage("There are not currently any cards in the collector.");
-        } else {
-            display->DisplayMessage("Printing Cards by Name Alphabetically");
-            display->PrintCardByNameAscending(collection->GetNameHead(), this->collection->GetLargestNameLength());
-        }
-    }
-
-    void CardController::deleteCardsFromCollection() {
-        string cardName;
-        this->display->DisplayMessage("Enter the name of the card you want to delete: ");
-
-        cardName = this->getInputString();
-        CardNode *node;
-
-        node = this->collection->FindCardNode(cardName);
-
-        if (node != 0) {
-            while (node != 0) {
-                this->collection->DeleteNode(node);
-                node = this->collection->FindCardNode(cardName);
-            }
-        } else {
-            this->display->DisplayMessage(cardName + " does not exist.");
-        }
-    }
-
     void CardController::loadCardsFromFile() const {
 
         string filename;
@@ -148,16 +73,6 @@ namespace controller {
                 this->collection->InsertNode(card);
             }
         }
-    }
-
-    CardNode *CardController::createCardFromInput(vector<string> &cardData) const {
-        string name = cardData.at(0);
-        string year = cardData.at(1);
-        string condition = cardData.at(2);
-        string value = cardData.at(3);
-        CardNode *card = new CardNode(name, stoi(year), condition, stoi(value));
-
-        return card;
     }
 
     vector<string> CardController::parseLineToData(const string &line) const {
@@ -224,7 +139,7 @@ namespace controller {
                 valid = true;
             } catch (string errorCode) {
                 if (errorCode.compare("Invalid Year") == 0) {
-                    this->display->DisplayMessage("Card year is invalid. Must be after 1860.");
+                    this->display->DisplayMessage("Card year is invalid. Must be after 1855 and before 2017.");
                     this->display->DisplayMessage("Please enter the card year: ");
                     cardYear = this->getInputInt();
                 }
@@ -241,6 +156,91 @@ namespace controller {
             }
         }
         return card;
+    }
+
+    CardNode *CardController::createCardFromInput(vector<string> &cardData) const {
+        string name = cardData.at(0);
+        string year = cardData.at(1);
+        string condition = cardData.at(2);
+        string value = cardData.at(3);
+        CardNode *card = new CardNode(name, stoi(year), condition, stoi(value));
+
+        return card;
+    }
+
+    void CardController::deleteCardsFromCollection() {
+        string cardName;
+        this->display->DisplayMessage("Enter the name of the card you want to delete: ");
+
+        cardName = this->getInputString();
+        CardNode *node;
+
+        node = this->collection->FindCardNode(cardName);
+
+        if (node != 0) {
+            while (node != 0) {
+                this->collection->DeleteNode(node);
+                node = this->collection->FindCardNode(cardName);
+            }
+        } else {
+            this->display->DisplayMessage(cardName + " does not exist.");
+        }
+    }
+
+    void CardController::displayCardsByConditionDescending() const {
+        if (collection->GetConditionHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Condition Descending");
+            display->PrintCardByConditionDescending(collection->GetConditionHead(),
+                                                    this->collection->GetLargestNameLength());
+        }
+    }
+
+    void CardController::displayCardsByConditionAscending() const {
+        if (collection->GetConditionHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Condition Ascending");
+            display->PrintCardByConditionAscending(collection->GetConditionHead(),
+                                                   this->collection->GetLargestNameLength());
+        }
+    }
+
+    void CardController::displayCardsByYearDescending() const {
+        if (collection->GetYearHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Year Descending");
+            display->PrintCardByYearDescending(collection->GetYearHead(), this->collection->GetLargestNameLength());
+        }
+    }
+
+    void CardController::displayCardsByYearAscending() const {
+        if (collection->GetYearHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Year Ascending");
+            display->PrintCardByYearAscending(collection->GetYearHead(), this->collection->GetLargestNameLength());
+        }
+    }
+
+    void CardController::displayCardReverseAlphabetically() const {
+        if (collection->GetNameHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Name Reverse Alphabetically");
+            display->PrintCardByNameDescending(collection->GetNameHead(), this->collection->GetLargestNameLength());
+        }
+    }
+
+    void CardController::displayCardsAlphabetically() const {
+        if (collection->GetNameHead() == 0) {
+            display->DisplayMessage("There are not currently any cards in the collector.");
+        } else {
+            display->DisplayMessage("Printing Cards by Name Alphabetically");
+            display->PrintCardByNameAscending(collection->GetNameHead(), this->collection->GetLargestNameLength());
+        }
     }
 
     int CardController::getInputInt() {

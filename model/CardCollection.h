@@ -16,17 +16,17 @@ namespace model {
         CardNode *ConditionHead;
         int largestNameLength = 0;
 
-        void insertCardByName(CardNode *node, CardNode *previousNameNode);
+        void insertCardByName(CardNode *insertingNode, CardNode *previousNameNode);
 
-        void insertCardByYear(CardNode *node, CardNode *previousYearNode);
+        void insertCardByYear(CardNode *insertingNode, CardNode *previousYearNode);
 
-        void insertCardByCondition(CardNode *node, CardNode *previousConditionNode);
+        void insertCardByCondition(CardNode *insertingNode, CardNode *previousConditionNode);
 
-        void deleteCardByName(CardNode *node, CardNode *previousNameNode);
+        void deleteCardByName(CardNode *deletingNode, CardNode *previousNameNode);
 
-        void deleteCardByYear(CardNode *node, CardNode *previousNameNode);
+        void deleteCardByYear(CardNode *deletingNode, CardNode *previousNameNode);
 
-        void deleteCardByCondition(CardNode *node, CardNode *previousNameNode);
+        void deleteCardByCondition(CardNode *deletingNode, CardNode *previousNameNode);
 
     public:
         // Constructor for a CardCollection object.
@@ -46,11 +46,11 @@ namespace model {
 
         // This method will insert a node into the list.
         // @param *node the node to be inserted into the list.
-        void InsertNode(CardNode *node);
+        void InsertNode(CardNode *insertingNode);
 
         // This method will removed the node from the list.
         // @param *node the node to be removed from the list.
-        void DeleteNode(CardNode *node);
+        void DeleteNode(CardNode *deletingNode);
 
         // This will find a card node in the list by name and return the location of the node.
         // @param cardName the name of the card to be found within the list.

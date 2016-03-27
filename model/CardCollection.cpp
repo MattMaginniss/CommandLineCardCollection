@@ -13,92 +13,129 @@ namespace model {
         this->ConditionHead = 0;
     }
 
-    void CardCollection::InsertNode(CardNode *node) {
+    void CardCollection::InsertNode(CardNode *insertingNode) {
         if (this->NameHead == 0 || this->YearHead == 0 || this->ConditionHead == 0) {
-            this->NameHead = node;
-            this->YearHead = node;
-            this->ConditionHead = node;
-            this->largestNameLength = (int) node->GetName().size();
+            this->NameHead = insertingNode;
+            this->YearHead = insertingNode;
+            this->ConditionHead = insertingNode;
+            this->largestNameLength = (int) insertingNode->GetName().size();
         } else {
             CardNode *previousNameNode = this->NameHead;
             CardNode *previousYearNode = this->YearHead;
             CardNode *previousConditionNode = this->ConditionHead;
 
-            this->insertCardByName(node, previousNameNode);
-            this->insertCardByYear(node, previousYearNode);
-            this->insertCardByCondition(node, previousConditionNode);
+            this->insertCardByName(insertingNode, previousNameNode);
+            this->insertCardByYear(insertingNode, previousYearNode);
+            this->insertCardByCondition(insertingNode, previousConditionNode);
 
-            if ((int) node->GetName().size() > this->largestNameLength) {
-                this->largestNameLength = (int) node->GetName().size();
+            if ((int) insertingNode->GetName().size() > this->largestNameLength) {
+                this->largestNameLength = (int) insertingNode->GetName().size();
             }
         }
     }
 
-    void CardCollection::DeleteNode(CardNode *node) {
+    void CardCollection::insertCardByName(CardNode *insertingNode, CardNode *previousNameNode) {
+        if (insertingNode->GetLowerName() <= this->NameHead->GetLowerName()) {
+            insertingNode->SetNextName(this->NameHead);
+            this->NameHead = insertingNode;
+        } else if (previousNameNode->GetNextName() == 0) {
+            previousNameNode->SetNextName(insertingNode);
+        } else if (insertingNode->GetLowerName() <=
+                   previousNameNode->GetNextName()->GetLowerName()) {
+            insertingNode->SetNextName(previousNameNode->GetNextName());
+            previousNameNode->SetNextName(insertingNode);
+        } else {
+            this->insertCardByName(insertingNode, previousNameNode->GetNextName());
+        }
+    }
+
+    void CardCollection::insertCardByYear(CardNode *insertingNode, CardNode *previousYearNode) {
+        if (insertingNode->GetYear() <= this->YearHead->GetYear()) {
+            insertingNode->SetNextYear(this->YearHead);
+            this->YearHead = insertingNode;
+        } else if (previousYearNode->GetNextYear() == 0) {
+            previousYearNode->SetNextYear(insertingNode);
+        } else if (insertingNode->GetYear() <= previousYearNode->GetNextYear()->GetYear()) {
+            insertingNode->SetNextYear(previousYearNode->GetNextYear());
+            previousYearNode->SetNextYear(insertingNode);
+        } else {
+            this->insertCardByYear(insertingNode, previousYearNode->GetNextYear());
+        }
+    }
+
+    void CardCollection::insertCardByCondition(CardNode *insertingNode, CardNode *previousConditionNode) {
+        if (insertingNode->GetCondition() <= this->ConditionHead->GetCondition()) {
+            insertingNode->SetNextCondition(this->ConditionHead);
+            this->ConditionHead = insertingNode;
+        } else if (previousConditionNode->GetNextCondition() == 0) {
+            previousConditionNode->SetNextCondition(insertingNode);
+        } else if (insertingNode->GetCondition() <= previousConditionNode->GetNextCondition()->GetCondition()) {
+            insertingNode->SetNextCondition(previousConditionNode->GetNextCondition());
+            previousConditionNode->SetNextCondition(insertingNode);
+        } else {
+            this->insertCardByCondition(insertingNode, previousConditionNode->GetNextCondition());
+        }
+    }
+
+
+    void CardCollection::DeleteNode(CardNode *deletingNode) {
         CardNode *previousNameNode = this->NameHead;
         CardNode *previousYearNode = this->YearHead;
         CardNode *previousConditionNode = this->ConditionHead;
 
-        this->deleteCardByName(node, previousNameNode);
-        this->deleteCardByYear(node, previousYearNode);
-        this->deleteCardByCondition(node, previousConditionNode);
+        this->deleteCardByName(deletingNode, previousNameNode);
+        this->deleteCardByYear(deletingNode, previousYearNode);
+        this->deleteCardByCondition(deletingNode, previousConditionNode);
 
-        delete (node);
+        delete (deletingNode);
     }
 
-    void CardCollection::insertCardByName(CardNode *node, CardNode *previousNameNode) {
-        if (node->GetLowerName() <= this->NameHead->GetLowerName()) {
-            node->SetNextName(this->NameHead);
-            this->NameHead = node;
-        } else if (previousNameNode->GetNextName() == 0) {
-            previousNameNode->SetNextName(node);
-        } else if (node->GetLowerName() <=
-                   previousNameNode->GetNextName()->GetLowerName()) {
-            node->SetNextName(previousNameNode->GetNextName());
-            previousNameNode->SetNextName(node);
-        } else {
-            this->insertCardByName(node, previousNameNode->GetNextName());
+    void CardCollection::deleteCardByName(CardNode *deletingNode, CardNode *previousNameNode) {
+        bool deleted = false;
+        if (deletingNode == this->NameHead) {
+            this->NameHead = deletingNode->GetNextName();
+            deleted = true;
+        }
+        while (!deleted) {
+            if (previousNameNode->GetNextName() == deletingNode) {
+                previousNameNode->SetNextName(deletingNode->GetNextName());
+                deleted = true;
+            } else {
+                previousNameNode = previousNameNode->GetNextName();
+            }
         }
     }
 
-    void CardCollection::insertCardByYear(CardNode *node, CardNode *previousYearNode) {
-        if (node->GetYear() <= this->YearHead->GetYear()) {
-            node->SetNextYear(this->YearHead);
-            this->YearHead = node;
-        } else if (previousYearNode->GetNextYear() == 0) {
-            previousYearNode->SetNextYear(node);
-        } else if (node->GetYear() <= previousYearNode->GetNextYear()->GetYear()) {
-            node->SetNextYear(previousYearNode->GetNextYear());
-            previousYearNode->SetNextYear(node);
-        } else {
-            this->insertCardByYear(node, previousYearNode->GetNextYear());
+    void CardCollection::deleteCardByYear(CardNode *deletingNode, CardNode *previousYearNode) {
+        bool deleted = false;
+        if (deletingNode == this->YearHead) {
+            this->YearHead = deletingNode->GetNextYear();
+            deleted = true;
+        }
+        while (!deleted) {
+            if (previousYearNode->GetNextYear() == deletingNode) {
+                previousYearNode->SetNextYear(deletingNode->GetNextYear());
+                deleted = true;
+            } else {
+                previousYearNode = previousYearNode->GetNextYear();
+            }
         }
     }
 
-    void CardCollection::insertCardByCondition(CardNode *node, CardNode *previousConditionNode) {
-        if (node->GetCondition() <= this->ConditionHead->GetCondition()) {
-            node->SetNextCondition(this->ConditionHead);
-            this->ConditionHead = node;
-        } else if (previousConditionNode->GetNextCondition() == 0) {
-            previousConditionNode->SetNextCondition(node);
-        } else if (node->GetCondition() <= previousConditionNode->GetNextCondition()->GetCondition()) {
-            node->SetNextCondition(previousConditionNode->GetNextCondition());
-            previousConditionNode->SetNextCondition(node);
-        } else {
-            this->insertCardByCondition(node, previousConditionNode->GetNextCondition());
+    void CardCollection::deleteCardByCondition(CardNode *deletingNode, CardNode *previousConditionNode) {
+        bool deleted = false;
+        if (deletingNode == this->ConditionHead) {
+            this->ConditionHead = deletingNode->GetNextCondition();
+            deleted = true;
         }
-    }
-
-    CardNode *CardCollection::GetYearHead() {
-        return this->YearHead;
-    }
-
-    CardNode *CardCollection::GetNameHead() {
-        return this->NameHead;
-    }
-
-    CardNode *CardCollection::GetConditionHead() {
-        return this->ConditionHead;
+        while (!deleted) {
+            if (previousConditionNode->GetNextCondition() == deletingNode) {
+                previousConditionNode->SetNextCondition(deletingNode->GetNextCondition());
+                deleted = true;
+            } else {
+                previousConditionNode = previousConditionNode->GetNextCondition();
+            }
+        }
     }
 
     CardNode *CardCollection::FindCardNode(string cardName) {
@@ -117,52 +154,20 @@ namespace model {
         return correctNode;
     }
 
-    void CardCollection::deleteCardByName(CardNode *node, CardNode *previousNameNode) {
-        bool deleted = false;
-        if (node == this->NameHead) {
-            this->NameHead = node->GetNextName();
-            deleted = true;
-        }
-        while (!deleted) {
-            if (previousNameNode->GetNextName() == node) {
-                previousNameNode->SetNextName(node->GetNextName());
-                deleted = true;
-            } else {
-                previousNameNode = previousNameNode->GetNextName();
-            }
-        }
+    CardNode *CardCollection::GetYearHead() {
+        return this->YearHead;
     }
 
-    void CardCollection::deleteCardByYear(CardNode *node, CardNode *previousYearNode) {
-        bool deleted = false;
-        if (node == this->YearHead) {
-            this->YearHead = node->GetNextYear();
-            deleted = true;
-        }
-        while (!deleted) {
-            if (previousYearNode->GetNextYear() == node) {
-                previousYearNode->SetNextYear(node->GetNextYear());
-                deleted = true;
-            } else {
-                previousYearNode = previousYearNode->GetNextYear();
-            }
-        }
+    CardNode *CardCollection::GetNameHead() {
+        return this->NameHead;
     }
 
-    void CardCollection::deleteCardByCondition(CardNode *node, CardNode *previousConditionNode) {
-        bool deleted = false;
-        if (node == this->ConditionHead) {
-            this->ConditionHead = node->GetNextCondition();
-            deleted = true;
-        }
-        while (!deleted) {
-            if (previousConditionNode->GetNextCondition() == node) {
-                previousConditionNode->SetNextCondition(node->GetNextCondition());
-                deleted = true;
-            } else {
-                previousConditionNode = previousConditionNode->GetNextCondition();
-            }
-        }
+    CardNode *CardCollection::GetConditionHead() {
+        return this->ConditionHead;
+    }
+
+    int CardCollection::GetLargestNameLength() {
+        return this->largestNameLength;
     }
 
     CardCollection::~CardCollection() {
@@ -178,7 +183,4 @@ namespace model {
         this->ConditionHead = 0;
     }
 
-    int CardCollection::GetLargestNameLength() {
-        return this->largestNameLength;
-    }
 }

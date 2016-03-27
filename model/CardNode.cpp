@@ -9,7 +9,7 @@ namespace model {
 
 
     CardNode::CardNode(string name, int year, string condition, int value) {
-        if (year < 1960) {
+        if (year < 1855 || year > 2017) {
             throw string("Invalid Year");
         }
         if (value <= 0) {
@@ -45,25 +45,12 @@ namespace model {
         }
     }
 
+    string CardNode::GetName() const {
+        return this->name;
+    }
 
     int CardNode::GetYear() const {
         return this->year;
-    }
-
-    void CardNode::SetNextName(CardNode *nextName) {
-        this->nextName = nextName;
-    }
-
-    void CardNode::SetNextYear(CardNode *nextYear) {
-        this->nextYear = nextYear;
-    }
-
-    void CardNode::SetNextCondition(CardNode *nextCondition) {
-        this->nextCondition = nextCondition;
-    }
-
-    string CardNode::GetName() const {
-        return this->name;
     }
 
     Condition CardNode::GetCondition() const {
@@ -72,13 +59,6 @@ namespace model {
 
     int CardNode::GetValue() const {
         return this->value;
-    }
-
-    CardNode::~CardNode() {
-        this->nextName = 0;
-        this->nextYear = 0;
-        this->nextCondition = 0;
-
     }
 
     CardNode *CardNode::GetNextName() const {
@@ -93,7 +73,26 @@ namespace model {
         return this->nextCondition;
     }
 
+    void CardNode::SetNextName(CardNode *nextName) {
+        this->nextName = nextName;
+    }
+
+    void CardNode::SetNextYear(CardNode *nextYear) {
+        this->nextYear = nextYear;
+    }
+
+    void CardNode::SetNextCondition(CardNode *nextCondition) {
+        this->nextCondition = nextCondition;
+    }
+
     string CardNode::GetLowerName() {
         return this->lowerName;
+    }
+
+    CardNode::~CardNode() {
+        this->nextName = 0;
+        this->nextYear = 0;
+        this->nextCondition = 0;
+
     }
 }
