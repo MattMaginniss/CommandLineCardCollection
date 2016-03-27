@@ -21,6 +21,14 @@ namespace model {
 
         void insertCardByCondition(CardNode *node, CardNode *previousConditionNode);
 
+        string convertToLower(const string &toBeConverted) const;
+
+        void deleteCardByName(CardNode *node, CardNode *previousNameNode);
+
+        void deleteCardByYear(CardNode *node, CardNode *previousNameNode);
+
+        void deleteCardByCondition(CardNode *node, CardNode *previousNameNode);
+
     public:
         CardCollection();
 
@@ -32,10 +40,11 @@ namespace model {
 
         CardNode *GetConditionHead();
 
-
         void InsertNode(CardNode *node);
 
         void DeleteNode(CardNode *node);
+
+        CardNode *FindCardNode(string cardName);
 
     };
 }

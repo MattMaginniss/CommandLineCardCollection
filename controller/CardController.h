@@ -7,6 +7,7 @@
 
 #include "CardCollection.h"
 #include "CardNode.h"
+#include <vector>
 
 using namespace model;
 
@@ -19,6 +20,7 @@ namespace controller {
     class CardController {
     private:
         CardCollection *collection;
+
         CardDisplay *display;
 
         string getInputString();
@@ -33,8 +35,6 @@ namespace controller {
 
         CardNode *createCardFromInput(vector<string> &cardData) const;
 
-        string convertToLower(const string &string) const;
-
     public:
         CardController();
 
@@ -44,6 +44,7 @@ namespace controller {
 
         void loadCardsFromFile() const;
 
+        void deleteCardsFromCollection();
     };
 
 }

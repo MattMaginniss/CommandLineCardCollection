@@ -17,20 +17,6 @@ namespace controller {
     }
 
     void CardController::Run() {
-//        int years[] = {1970, 1925, 2016, 1969, 1950, 1921, 1968, 2014, 2013};
-//        string names[] = {"Bobby", "Alex", "Smith", "Zander", "Jack", "Michael", "Matt", "Ryan", "Zach"};
-//        string conditions[] = {"Mint", "Poor", "Pristine", "Pristine", "Excellent", "Poor", "Good", "Good", "Mint"};
-//        int values[] = {456245, 124, 9342, 1000, 24234, 1000000, 4240242, 12392, 429};
-//
-//        for (int i = 0; i < 9; i++) {
-//            CardNode *card = new CardNode(names[i], years[i], conditions[i], values[i]);
-//            this->collection->InsertNode(card);
-//        }
-
-
-
-
-
         bool running = true;
         this->display->DisplayWelcome();
         while (running) {
@@ -46,10 +32,7 @@ namespace controller {
                 CardNode *card = this->createCard();
                 this->collection->InsertNode(card);
             } else if (userMenuChoice.compare("4") == 0) {
-                cout << "Delete Card!" << endl;
-                string cardName;
-                this->display->DisplayMessage("Enter the name of the card you want to delete: ");
-                cardName = this->getInputString();
+                this->deleteCardsFromCollection();
             } else if (userMenuChoice.compare("5") == 0) {
                 this->display->DisplayMessage("Printing Cards by Name Alphabetically");
                 this->display->PrintCardByNameAscending(this->collection->GetNameHead());
@@ -75,30 +58,47 @@ namespace controller {
                 this->display->DisplayMessage("Invalid Input");
             }
         }
+    }
 
+    void CardController::deleteCardsFromCollection() {
+        this->display->DisplayMessage("Delete Card!");
+        string cardName;
+        this->display->DisplayMessage("Enter the name of the card you want to delete: ");
 
+        cardName = this->getInputString();
+        CardNode *node;
+
+        node = this->collection->FindCardNode(cardName);
+
+        if (node != 0) {
+            while (node != 0) {
+                this->collection->DeleteNode(node);
+                delete (node);
+                node = this->collection->FindCardNode(cardName);
+            }
+        } else {
+            this->display->DisplayMessage(cardName + " does not exist.");
+        }
     }
 
     void CardController::loadCardsFromFile() const {
+
         string filename;
-
         this->display->DisplayMessage("Please enter a filename containing baseball cards.");
-        cin >> filename;
 
+        cin >> filename;
         ifstream ifs(filename);
         string line;
-
 
         if (!ifs.is_open() || !ifs.good()) {
             this->display->DisplayMessage("Input file does not exit.");
         } else {
-
             while (getline(ifs, line)) {
-                vector<string> cardData = parseLineToData(line);
+                vector<string> cardData;
+                cardData = parseLineToData(line);
                 CardNode *card = createCardFromInput(cardData);
                 this->collection->InsertNode(card);
             }
-
         }
     }
 
@@ -108,6 +108,7 @@ namespace controller {
         string condition = cardData.at(2);;
         string value = cardData.at(3);;
         CardNode *card = new CardNode(name, stoi(year), condition, stoi(value));
+
         return card;
     }
 
@@ -167,14 +168,6 @@ namespace controller {
         string value;
         ws(cin);
         getline(cin, value);
-        return value;
-    }
-
-    string CardNode::convertToLower(const string &string) const {
-        locale loc;
-        string value = string;
-        for (string::size_type i = 0; i < value.length(); ++i)
-            value[i] = tolower(value[i], loc);
         return value;
     }
 
