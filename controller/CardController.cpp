@@ -61,7 +61,6 @@ namespace controller {
     }
 
     void CardController::deleteCardsFromCollection() {
-        this->display->DisplayMessage("Delete Card!");
         string cardName;
         this->display->DisplayMessage("Enter the name of the card you want to delete: ");
 
@@ -122,7 +121,6 @@ namespace controller {
     }
 
     void CardController::saveCardsToFile() const {
-        cout << "Save File!" << endl;
         string filename;
 
         this->display->DisplayMessage("Please enter a filename to save the card collection to: ");
