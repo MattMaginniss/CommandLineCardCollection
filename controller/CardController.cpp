@@ -73,7 +73,6 @@ namespace controller {
         if (node != 0) {
             while (node != 0) {
                 this->collection->DeleteNode(node);
-                delete (node);
                 node = this->collection->FindCardNode(cardName);
             }
         } else {

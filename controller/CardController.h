@@ -35,16 +35,19 @@ namespace controller {
 
         CardNode *createCardFromInput(vector<string> &cardData) const;
 
-    public:
-        CardController();
-
-        virtual ~CardController();
-
-        void Run();
-
         void loadCardsFromFile() const;
 
         void deleteCardsFromCollection();
+
+    public:
+        // Constructor for a CardController object.
+        CardController();
+
+        // Deconstructor for a CardController object.
+        virtual ~CardController();
+
+        // This method is primary running loop of the program.
+        void Run();
     };
 
 }

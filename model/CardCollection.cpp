@@ -36,6 +36,8 @@ namespace model {
         this->deleteCardByName(node, previousNameNode);
         this->deleteCardByYear(node, previousYearNode);
         this->deleteCardByCondition(node, previousConditionNode);
+
+        delete (node);
     }
 
     void CardCollection::insertCardByName(CardNode *node, CardNode *previousNameNode) {

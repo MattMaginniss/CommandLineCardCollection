@@ -30,20 +30,31 @@ namespace model {
         void deleteCardByCondition(CardNode *node, CardNode *previousNameNode);
 
     public:
+        // Constructor for a CardCollection object.
         CardCollection();
 
+        // Deconstructor for a CardCollection object.
         virtual ~CardCollection();
 
+        // Getter for the Name head of the list.
         CardNode *GetNameHead();
 
+        // Getter for the Year head of the list.
         CardNode *GetYearHead();
 
+        // Getter for the Condition head of the list.
         CardNode *GetConditionHead();
 
+        // This method will insert a node into the list.
+        // @param *node the node to be inserted into the list.
         void InsertNode(CardNode *node);
 
+        // This method will removed the node from the list.
+        // @param *node the node to be removed from the list.
         void DeleteNode(CardNode *node);
 
+        // This will find a card node in the list by name and return the location of the node.
+        // @param cardName the name of the card to be found within the list.
         CardNode *FindCardNode(string cardName);
 
     };
